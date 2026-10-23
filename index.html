@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Inner Divine — affirmations, meditation, and daily spiritual practice.">
-<title>Welcome | Inner Divine</title>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Inner Divine — a personal practice of affirmations, intention, meditation, and inner connection.">
+<title>ConnectingtoMyInnerDivine:MyDailyIntention | Inner Divine</title>
 <style>
 :root {
   --paper: #fffdf8;
@@ -235,60 +232,107 @@ h3 {
 .audio-card audio { width: 100%; margin-top: 10px; }
 .audio-note { color: var(--muted); font-size: .94rem; margin-bottom: 0; }
 
+</style><style>
+:root{
+  --ink:#32263a;--muted:#776d74;--plum:#75445f;--plum-dark:#4f3048;
+  --rose:#c99aaa;--gold:#b28d52;--gold-soft:#dbc79f;--paper:#f8f0e7;
+  --paper2:#efe1d3;--cream:#fffaf4;--line:#d7c5b7;--shadow:rgba(74,44,62,.12)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--ink);font-family:Georgia,"Times New Roman",serif;line-height:1.68;
+  background:
+    radial-gradient(circle at 14% 0%,rgba(201,154,170,.19),transparent 29rem),
+    radial-gradient(circle at 92% 7%,rgba(178,141,82,.14),transparent 28rem),
+    repeating-linear-gradient(0deg,rgba(79,48,72,.018) 0 1px,transparent 1px 4px),
+    linear-gradient(180deg,var(--paper),var(--paper2));
+  min-height:100vh
+}
+body:before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.22;
+  background-image:radial-gradient(circle,rgba(80,58,65,.16) .55px,transparent .7px);
+  background-size:18px 18px
+}
+.hero{
+  padding:72px 22px 52px;text-align:center;color:#fffaf6;position:relative;overflow:hidden;
+  background:
+    radial-gradient(circle at 50% -25%,rgba(219,199,159,.32),transparent 48%),
+    linear-gradient(135deg,#4b2d44,#77465f 58%,#684058)
+}
+.hero:after{content:"✦";position:absolute;right:7%;top:5px;font-size:7.5rem;color:rgba(219,199,159,.09)}
+.hero h1{margin:8px auto 12px;max-width:980px;font-weight:500;font-size:clamp(2.15rem,5.5vw,4.2rem);line-height:1.08}
+.eyebrow,.creator,.page-kicker{font-family:Arial,Helvetica,sans-serif;text-transform:uppercase;letter-spacing:.16em;font-weight:700}
+.eyebrow{font-size:.75rem;color:var(--gold-soft);margin:0}
+.subtitle{max-width:760px;margin:0 auto;color:#ecdee5;font-size:1.02rem}
+.creator{font-size:.67rem;color:#d8c4cd;margin-top:18px}
+.site-nav{
+  position:sticky;top:0;z-index:20;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+  padding:12px 16px;background:rgba(248,240,231,.93);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);font-family:Arial,Helvetica,sans-serif
+}
+.site-nav a{padding:9px 15px;border:1px solid #ccb7aa;border-radius:999px;background:#fffaf5;color:var(--plum-dark);text-decoration:none;font-size:.87rem;font-weight:700}
+.site-nav a:hover,.site-nav a.active{background:var(--plum);border-color:var(--plum);color:#fff}
+main{max-width:1000px;margin:auto;padding:30px 18px 70px}
+.section{
+  margin:26px 0;padding:32px;border:1px solid rgba(178,141,82,.32);border-radius:24px;
+  background:linear-gradient(145deg,rgba(255,251,246,.94),rgba(247,236,226,.9));
+  box-shadow:0 18px 48px var(--shadow)
+}
+.section:before{content:"";display:block;width:48px;height:2px;margin-bottom:20px;background:linear-gradient(90deg,var(--gold),var(--rose))}
+.section h2{margin-top:0;color:var(--plum-dark);font-weight:500;font-size:clamp(1.7rem,3vw,2.35rem)}
+.section h3{color:var(--plum);margin-bottom:8px}
+.intro,.science-note{color:var(--muted)}
+.page-kicker{font-size:.72rem;color:var(--gold);margin:0 0 10px}
+.info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px}
+.info-card{
+  padding:21px;border-radius:18px;border:1px solid rgba(117,68,95,.16);
+  background:rgba(255,252,247,.76)
+}
+.info-card h3{margin-top:0;font-size:1.08rem}
+.practice-note{margin-top:20px;padding:18px 20px;border-left:3px solid var(--gold);background:rgba(178,141,82,.08);border-radius:0 14px 14px 0}
+.video-card{
+  margin-top:22px;padding:17px;border-radius:20px;border:1px solid rgba(219,199,159,.38);
+  background:linear-gradient(135deg,#4d2f47,#77455f);box-shadow:0 16px 38px rgba(74,44,62,.2)
+}
+.video-card video{display:block;width:100%;border-radius:14px;background:#130d11}
+.welcome-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:24px}
+.welcome-card{
+  padding:26px;border-radius:20px;border:1px solid rgba(178,141,82,.33);
+  background:rgba(255,252,247,.78)
+}
+.welcome-card h3{margin-top:0;color:var(--plum-dark)}
+.link-btn{display:inline-block;margin-top:6px;padding:10px 16px;border-radius:999px;background:linear-gradient(135deg,var(--plum-dark),var(--plum));color:#fff!important;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-size:.86rem;font-weight:700}
+audio{width:100%}
+.footer{padding:26px 18px 40px;text-align:center;color:#7a6d74;font-family:Arial,Helvetica,sans-serif;font-size:.77rem;letter-spacing:.08em}
+@media(max-width:720px){.hero{padding:54px 16px 40px}.section{padding:22px}.info-grid,.welcome-grid{grid-template-columns:1fr}main{padding:18px 12px 50px}}
 </style>
-
-<style>
-.site-nav{position:sticky;top:0;z-index:20;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:12px 16px;background:rgba(255,253,248,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);font-family:Arial,Helvetica,sans-serif}
-.site-nav a{border:1px solid var(--line);border-radius:999px;background:white;color:var(--sage-dark);padding:9px 15px;text-decoration:none;font-size:.9rem;font-weight:700}
-.site-nav a:hover,.site-nav a.active{background:var(--cream)}
-.welcome-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:26px}
-.welcome-card{padding:28px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#fff,#fbf7ef)}
-.welcome-card h3{font-size:1.3rem;margin-top:0}
-.welcome-card p{color:var(--muted)}
-.video-card{margin-top:26px;padding:24px;background:linear-gradient(135deg,rgba(245,239,227,.9),rgba(255,253,248,.96));border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px rgba(44,55,49,.08)}
-.video-card video{width:100%;border-radius:14px;background:#000;display:block}
-.page-kicker{margin:0 0 10px;font-family:Arial,Helvetica,sans-serif;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sage-dark);font-weight:700}
-@media(max-width:720px){.welcome-grid{grid-template-columns:1fr}}
-</style>
-</head>
-<body>
+</head><body>
 <header class="hero">
-  <p class="eyebrow">Inner Divine</p>
-  <h1>Welcome</h1>
-  <p class="subtitle">A daily practice of gratitude, love, awareness, and connection</p>
-  <p class="creator">Created by Surinder Batra</p>
+<p class="eyebrow">Inner Divine</p>
+<h1>ConnectingtoMyInnerDivine:MyDailyIntention</h1>
+<p class="subtitle">A personal space for conscious intention, affirmation, breath, and inner connection</p>
+<p class="creator">Created by Surinder Batra</p>
 </header>
 <nav class="site-nav" aria-label="Main navigation">
-  <a href="index.html" class="active">Welcome</a>
-  <a href="affirmations.html">Affirmations</a>
-  <a href="meditations.html">Meditations</a>
-</nav>
-<main>
-
+<a href="index.html" class="active">Welcome</a>
+<a href="affirmations.html">Affirmations</a>
+<a href="meditations.html">Meditations</a>
+</nav><main>
 <section class="section">
-  <p class="page-kicker">A Daily Inner Practice</p>
-  <h2>Welcome</h2>
-  <p class="intro">A space for gratitude, love, awareness, connection, breath, and quiet reflection.</p>
+  <p class="page-kicker">ConnectingtoMyInnerDivine:MyDailyIntention</p>
+  <h2>A Daily Return to the Inner Divine</h2>
+  <p class="intro">This space is a personal daily practice: to begin with awareness, remember what matters, and consciously choose the inner quality from which the day will be lived.</p>
   <div class="welcome-grid">
     <article class="welcome-card">
-      <h3>Affirmations</h3>
-      <p>Begin with the personal morning affirmations, listen to the accompanying reflection, and return to the words that help align the day with love, grace, and conscious awareness.</p>
-      <a class="link-btn" href="affirmations.html">Open Affirmations</a>
+      <h3>ConnectingtoMyHigherSelf:MyDailyAffirmations</h3>
+      <p>A practice of listening, reflection, conscious repetition, gratitude, love, and alignment with the qualities you want to embody.</p>
+      <a class="link-btn" href="affirmations.html">Enter Affirmations</a>
     </article>
     <article class="welcome-card">
-      <h3>Meditations</h3>
-      <p>Continue with the morning pranayama and meditation practice, or close the day with the short evening Aum meditation.</p>
-      <a class="link-btn" href="meditations.html">Open Meditations</a>
+      <h3>ConnectingtoMyInnerDivine:MyDailyIntention</h3>
+      <p>A quieter practice of breath, stillness, meditation, and setting the inner intention with which you meet the day.</p>
+      <a class="link-btn" href="meditations.html">Enter Meditations</a>
     </article>
   </div>
-</section>
-<section class="section preamble" id="preamble">
-    <h2>Preamble</h2>
-    <p>I am thinking of writing a preamble (to these affirmations ) that recognizes our encounter occurred during the week of Gurupurnima through the generosity of Dr. Jay and the follow-up by Shradha Jagasia Ji. We all know that Guru Purnima is a time to pause, reflect on our growth, and bow in gratitude to those who illuminate our path. In the spirit of Guru Purnima, I express my heartfelt gratitude to Dr. Jay for his warm invitation and visionary leadership at the Kerala Ayurveda Academy.</p>
-    <p>A true Guru or guide does not merely impart information; they create a sacred space where wisdom can be lived and shared. Dr. Jay has cultivated such a space here. In honoring him and this ancient lineage of Ayurveda, I offer these morning affirmations—not as a display of achievement, but as my humble contribution to our shared journey of living a purposeful, selfless, and dedicated life.</p>
-    <p>You may all recall that I also brought up ( and everyone in the classroom enthusiastically agreed) the warmth and positivity we all feel when learning in the classroom at Kerala Academy. I also want to express my deep gratitude to all the fellow students for the connectivity, engagement, and joy I experienced during our interactions.</p>
-  </section>
-</main>
-<footer class="footer">Inner Divine • Welcome</footer>
-</body>
-</html>
+</section></main><footer class="footer">Inner Divine • Daily Intention</footer></body></html>
