@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A private 30-day Inner Divine affirmation journey with local progress tracking.">
+<title>30-Day Journey | Inner Divine</title>
+<link rel="stylesheet" href="styles.css">
+</head><body>
+<header class="hero"><p class="eyebrow">Inner Divine</p><h1>30-Day Affirmation Journey</h1><p class="theme-line">One day. One intention. One lived practice.</p><p class="subtitle">A gentle 30-day rhythm designed to help the affirmations move from words into daily awareness and action.</p></header>
+<nav class="site-nav" aria-label="Main navigation">
+<a href="index.html">Divine Alignment</a>
+<a href="affirmations.html">Affirmations</a>
+<a href="journey.html" class="active">30-Day Journey</a>
+<a href="why-affirmations.html">Why Affirmations?</a>
+<a href="meditations.html">Daily Intentions</a>
+</nav>
+<main>
+<section class="section">
+<div class="journey-summary">
+<div><p class="page-kicker">Your journey</p><h2>Build the practice gently</h2><p class="intro">Your progress is saved only in this browser. No login, account, or personal profile is required.</p></div>
+<div class="stats-row">
+<div class="stat-card"><strong id="completedCount">0</strong><span>days complete</span></div>
+<div class="stat-card"><strong id="streakCount">0</strong><span>day streak</span></div>
+<div class="stat-card"><strong id="progressPercent">0%</strong><span>progress</span></div>
+</div>
+</div>
+<div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div></div>
+</section>
+
+<section class="section">
+<div class="journey-top">
+<div class="today-panel">
+<p class="day-label" id="dayLabel">Day 1 of 30</p>
+<h2 id="dayTitle">Divine Alignment</h2>
+<p class="source-note" id="sourceTitle"></p>
+<p class="daily-affirmation" id="dayAffirmation"></p>
+<div class="ritual">
+<div><strong>1 · Arrive</strong><br><span>Take three easy breaths.</span></div>
+<div><strong>2 · Listen</strong><br><span>Hear or read the words slowly.</span></div>
+<div><strong>3 · Live</strong><br><span>Carry one quality into your day.</span></div>
+</div>
+<div class="journey-actions">
+<button class="primary-btn" id="completeBtn" type="button">Mark today complete</button>
+<button class="secondary-btn" id="nextBtn" type="button">Next day →</button>
+</div>
+<p class="privacy-note">Completion is stored locally on this device. Clearing browser storage will clear the tracker.</p>
+</div>
+
+<div>
+<div id="videoArea"></div>
+<div class="reflection-card">
+<p class="page-kicker">A tiny reflection</p>
+<label for="reflection">What do I want to remember from this affirmation?</label>
+<textarea id="reflection" rows="5" placeholder="Write a sentence for yourself…"></textarea>
+<button class="secondary-btn" id="saveReflection" type="button">Save reflection</button>
+<span class="save-status" id="saveStatus" aria-live="polite"></span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<p class="page-kicker">30 days</p>
+<h2>Journey Map</h2>
+<p class="intro">Choose any day to revisit it. Completed days stay marked on this browser.</p>
+<div class="day-grid" id="dayGrid"></div>
+<div class="journey-actions"><button class="secondary-btn danger-soft" id="resetBtn" type="button">Reset this journey</button></div>
+</section>
+</main>
+<footer class="footer">Inner Divine • 30-Day Journey</footer>
+<script>
+const DAYS = [{"day":1,"title":"Divine Alignment","affirmation":"I am grateful to you for the divine grace and conscious awareness that align my daily choices, words, and actions with my highest spiritual purpose.","sourceTitle":"Divine Alignment","video":"A_Channel_for_Grace.mp4"},{"day":2,"title":"Love as an Instrument","affirmation":"I am grateful to you for making me an instrument of your love and grace to all the kind, caring, and loving souls you have surrounded me with.","sourceTitle":"An Instrument of Love","video":null},{"day":3,"title":"A Channel of Grace","affirmation":"I am grateful to you for making me your channel to stream your love and blessings to everyone around me.","sourceTitle":"A Channel of Grace","video":null},{"day":4,"title":"Healthy Body, Loving Mind","affirmation":"I am grateful to you for the gift of this healthy resilient body; a pure loving mind always aware that we are all connected; and an eye that sees the divinity and serenity in everyone around me.","sourceTitle":"Healthy Body, Loving Mind","video":null},{"day":5,"title":"Pure Thoughts & Words","affirmation":"I am grateful to you for shaping me such that my thoughts are always pure and loving; my words are always sweet, polite and respectful; and my deeds are always selfless and noble.","sourceTitle":"Pure Thoughts, Sweet Words, Selfless Deeds","video":null},{"day":6,"title":"Love, Dignity & Respect","affirmation":"I am grateful to you for shaping me such that I respond to everyone with love, dignity, and respect.","sourceTitle":"Love, Dignity & Respect","video":null},{"day":7,"title":"Radiating Love","affirmation":"I am grateful to you for bestowing upon me the ability to radiate love and blessings to everyone I think about and/or interact with.","sourceTitle":"Radiating Love & Blessings","video":null},{"day":8,"title":"Connected to the Divine","affirmation":"With your love and grace, I am aware that I am a pure, loving, calm, peaceful, powerful soul always connected to the divine.","sourceTitle":"Connected to the Divine","video":null},{"day":9,"title":"Loving Souls","affirmation":"I am grateful to you for surrounding me with very kind, caring, and loving souls.","sourceTitle":"Surrounded by Loving Souls","video":null},{"day":10,"title":"Respect in Relationship","affirmation":"I am grateful to you for making me respond to everyone with love, dignity, and respect.","sourceTitle":"Love, Dignity & Respect","video":null},{"day":11,"title":"Healthy Relationships","affirmation":"I am grateful to you for making me physically and mentally healthy and all my relations are mutually loving and respectful.","sourceTitle":"Healthy Relationships","video":null},{"day":12,"title":"Radiating Love","affirmation":"I radiate love and blessings to everyone I think of or interact with.","sourceTitle":"Radiating Love","video":null},{"day":13,"title":"Healthy Body, Creative Mind","affirmation":"I am grateful to you for bestowing upon me the gift of a healthy resilient human body, a constructive creative loving mind.","sourceTitle":"Healthy Body, Creative Mind","video":null},{"day":14,"title":"Inner Serenity","affirmation":"As I engage more with God loving people, I feel more connected with my inner self, and more aware of the serenity and divinity of those around me.","sourceTitle":"Inner Connection & Serenity","video":null},{"day":15,"title":"Recognising Virtues","affirmation":"I am grateful for your giving me the insight to recognise the virtues in those around me, and share with them","sourceTitle":"Recognising Virtues in Others","video":null},{"day":16,"title":"Joy","affirmation":"how I think of them, I feel very joyful.","sourceTitle":"Joy","video":null},{"day":17,"title":"Joy Through Connection","affirmation":"Connecting with people and learning something from each other also enhances my happiness.","sourceTitle":"Joy Through Connection","video":null},{"day":18,"title":"Restful Sleep","affirmation":"I am grateful to you for bestowing upon me the gift of restful, rejuvenating sleep every night so that I can wake up well rested, calm, and vibrant every morning to enjoy the experiences of your magnificent creation.","sourceTitle":"Restful Sleep","video":null},{"day":19,"title":"Return to Alignment","affirmation":"I am grateful to you for the divine grace and conscious awareness that align my daily choices, words, and actions with my highest spiritual purpose.","sourceTitle":"Divine Alignment","video":null},{"day":20,"title":"Return to Love","affirmation":"I am grateful to you for making me an instrument of your love and grace to all the kind, caring, and loving souls you have surrounded me with.","sourceTitle":"An Instrument of Love","video":null},{"day":21,"title":"Return to Grace","affirmation":"I am grateful to you for making me your channel to stream your love and blessings to everyone around me.","sourceTitle":"A Channel of Grace","video":null},{"day":22,"title":"Return to Wholeness","affirmation":"I am grateful to you for the gift of this healthy resilient body; a pure loving mind always aware that we are all connected; and an eye that sees the divinity and serenity in everyone around me.","sourceTitle":"Healthy Body, Loving Mind","video":null},{"day":23,"title":"Return to Pure Intention","affirmation":"I am grateful to you for shaping me such that my thoughts are always pure and loving; my words are always sweet, polite and respectful; and my deeds are always selfless and noble.","sourceTitle":"Pure Thoughts, Sweet Words, Selfless Deeds","video":null},{"day":24,"title":"Return to Respect","affirmation":"I am grateful to you for shaping me such that I respond to everyone with love, dignity, and respect.","sourceTitle":"Love, Dignity & Respect","video":null},{"day":25,"title":"Return to Blessing","affirmation":"I am grateful to you for bestowing upon me the ability to radiate love and blessings to everyone I think about and/or interact with.","sourceTitle":"Radiating Love & Blessings","video":null},{"day":26,"title":"Deepen Divine Connection","affirmation":"With your love and grace, I am aware that I am a pure, loving, calm, peaceful, powerful soul always connected to the divine.","sourceTitle":"Connected to the Divine","video":null},{"day":27,"title":"Nourish Relationships","affirmation":"I am grateful to you for making me physically and mentally healthy and all my relations are mutually loving and respectful.","sourceTitle":"Healthy Relationships","video":null},{"day":28,"title":"Care for Body & Mind","affirmation":"I am grateful to you for bestowing upon me the gift of a healthy resilient human body, a constructive creative loving mind.","sourceTitle":"Healthy Body, Creative Mind","video":null},{"day":29,"title":"Choose Joy","affirmation":"Connecting with people and learning something from each other also enhances my happiness.","sourceTitle":"Joy Through Connection","video":null},{"day":30,"title":"Rest & Integration","affirmation":"I am grateful to you for bestowing upon me the gift of restful, rejuvenating sleep every night so that I can wake up well rested, calm, and vibrant every morning to enjoy the experiences of your magnificent creation.","sourceTitle":"Restful Sleep","video":null}];
+const STORAGE_KEY = "innerDivine30DayJourneyV1";
+let state = loadState();
+let selectedDay = Math.min(30, Math.max(1, state.selectedDay || firstOpenDay()));
+
+function localDateString(d=new Date()){
+  const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,"0"), day=String(d.getDate()).padStart(2,"0");
+  return y+"-"+m+"-"+day;
+}
+function loadState(){
+  try{
+    const parsed=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");
+    return {completed:parsed.completed||{}, reflections:parsed.reflections||{}, selectedDay:parsed.selectedDay||1};
+  }catch(e){ return {completed:{},reflections:{},selectedDay:1}; }
+}
+function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+function firstOpenDay(){ for(let i=1;i<=30;i++) if(!state.completed[i]) return i; return 30; }
+function streak(){
+  const dates=[...new Set(Object.values(state.completed))].sort();
+  if(!dates.length) return 0;
+  const dayMs=86400000;
+  const toUtc=s=>{const [y,m,d]=s.split("-").map(Number);return Date.UTC(y,m-1,d)};
+  let best=1, cur=1;
+  for(let i=1;i<dates.length;i++){
+    if((toUtc(dates[i])-toUtc(dates[i-1]))/dayMs===1) cur++;
+    else cur=1;
+    best=Math.max(best,cur);
+  }
+  const today=toUtc(localDateString()), last=toUtc(dates[dates.length-1]);
+  if((today-last)/dayMs>1) return 0;
+  cur=1;
+  for(let i=dates.length-1;i>0;i--){
+    if((toUtc(dates[i])-toUtc(dates[i-1]))/dayMs===1) cur++;
+    else break;
+  }
+  return cur;
+}
+function renderStats(){
+  const count=Object.keys(state.completed).length;
+  document.getElementById("completedCount").textContent=count;
+  document.getElementById("streakCount").textContent=streak();
+  const pct=Math.round(count/30*100);
+  document.getElementById("progressPercent").textContent=pct+"%";
+  document.getElementById("progressFill").style.width=pct+"%";
+}
+function renderGrid(){
+  const grid=document.getElementById("dayGrid"); grid.innerHTML="";
+  DAYS.forEach(d=>{
+    const b=document.createElement("button");
+    b.className="day-btn"+(d.day===selectedDay?" current":"")+(state.completed[d.day]?" done":"");
+    b.type="button"; b.innerHTML="<strong>Day "+d.day+"</strong><small>"+d.title+"</small>";
+    b.onclick=()=>{ selectedDay=d.day; state.selectedDay=d.day; saveState(); render(); window.scrollTo({top:document.querySelector(".today-panel").offsetTop-110,behavior:"smooth"}); };
+    grid.appendChild(b);
+  });
+}
+function renderVideo(day){
+  const area=document.getElementById("videoArea");
+  if(day.video){
+    area.innerHTML='<div class="video-card day-video"><video controls preload="metadata" playsinline><source src="'+day.video+'" type="video/mp4">Your browser does not support video playback.</video><p class="video-caption">Day '+day.day+' visual practice</p></div>';
+  }else{
+    area.innerHTML='<div class="video-placeholder"><div><strong>Day '+day.day+' visual practice</strong><span>Video + background music slot ready for this day</span></div></div>';
+  }
+}
+function renderDay(){
+  const d=DAYS[selectedDay-1];
+  document.getElementById("dayLabel").textContent="Day "+d.day+" of 30";
+  document.getElementById("dayTitle").textContent=d.title;
+  document.getElementById("sourceTitle").textContent="From: "+d.sourceTitle;
+  document.getElementById("dayAffirmation").textContent=d.affirmation;
+  document.getElementById("reflection").value=state.reflections[d.day]||"";
+  const btn=document.getElementById("completeBtn");
+  btn.textContent=state.completed[d.day]?"Completed ✓":"Mark today complete";
+  btn.classList.toggle("completed",!!state.completed[d.day]);
+  renderVideo(d);
+}
+function render(){ renderStats(); renderGrid(); renderDay(); }
+document.getElementById("completeBtn").onclick=()=>{
+  const d=selectedDay;
+  if(state.completed[d]) delete state.completed[d];
+  else state.completed[d]=localDateString();
+  saveState(); render();
+};
+document.getElementById("nextBtn").onclick=()=>{ if(selectedDay<30){selectedDay++;state.selectedDay=selectedDay;saveState();render();} };
+document.getElementById("saveReflection").onclick=()=>{
+  state.reflections[selectedDay]=document.getElementById("reflection").value.trim();
+  saveState();
+  const s=document.getElementById("saveStatus"); s.textContent="Saved"; setTimeout(()=>s.textContent="",1300);
+};
+document.getElementById("resetBtn").onclick=()=>{
+  if(confirm("Reset all 30-day progress and reflections on this browser?")){
+    state={completed:{},reflections:{},selectedDay:1}; selectedDay=1; saveState(); render();
+  }
+};
+render();
+</script>
+</body></html>
