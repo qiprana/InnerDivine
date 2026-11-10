@@ -3,8 +3,34 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="A private 30-day Inner Divine affirmation journey with local progress tracking.">
 <title>30-Day Divine Alignment | Inner Divine</title>
-<link rel="stylesheet" href="styles.css">
-</head><body class="journey-page">
+<link rel="stylesheet" href="styles.css?v=20261110-1035">
+
+<style id="journey-critical">
+.journey-page .journey-shell{display:grid!important;grid-template-columns:240px minmax(0,1fr)!important;gap:18px!important;align-items:start!important}
+.journey-page .day-rail{position:sticky!important;top:68px!important;max-height:calc(100vh - 88px)!important;overflow-y:auto!important;padding:12px!important;border:1px solid rgba(118,83,109,.16)!important;border-radius:16px!important;background:rgba(255,250,245,.96)!important}
+.journey-page .rail-day-grid{display:grid!important;grid-template-columns:1fr!important;gap:5px!important;margin:0!important}
+.journey-page .rail-day-grid .day-btn{display:grid!important;grid-template-columns:30px minmax(0,1fr)!important;align-items:center!important;gap:8px!important;min-height:38px!important;height:auto!important;padding:6px 8px!important;text-align:left!important;border-radius:9px!important}
+.journey-page .rail-day-grid .day-num{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:30px!important;height:26px!important;border-radius:7px!important;background:rgba(185,155,99,.11)!important;color:var(--plum-deep)!important;font:700 .78rem/1 Arial,Helvetica,sans-serif!important}
+.journey-page .rail-day-grid .day-title{display:block!important;color:var(--ink)!important;font:600 .78rem/1.18 Arial,Helvetica,sans-serif!important;white-space:normal!important}
+.journey-page .rail-day-grid .day-btn.current{outline:2px solid var(--gold)!important;background:#fff7e8!important}
+.journey-page .rail-day-grid .day-btn.current .day-num{background:rgba(185,155,99,.23)!important}
+.journey-page .rail-day-grid .day-btn.done::after{display:none!important}
+.journey-page .practice-grid{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:16px!important;align-items:stretch!important}
+.journey-page .media-column .video-placeholder{height:300px!important;min-height:300px!important}
+.journey-page .spacious-words{height:300px!important;min-height:300px!important;padding:22px 24px!important;overflow:auto!important}
+.journey-page .spacious-words .daily-affirmation{font-size:clamp(1.16rem,1.35vw,1.5rem)!important;line-height:1.48!important}
+.journey-page .compact-ritual{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;margin-top:8px!important}
+@media(max-width:900px){
+ .journey-page .journey-shell{grid-template-columns:1fr!important}
+ .journey-page .day-rail{position:static!important;max-height:none!important;overflow:visible!important}
+ .journey-page .rail-day-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(max-width:760px){
+ .journey-page .practice-grid{grid-template-columns:1fr!important}
+ .journey-page .rail-day-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .journey-page .media-column .video-placeholder,.journey-page .spacious-words{height:auto!important;min-height:220px!important}
+}
+</style></head><body class="journey-page">
 <header class="hero"><p class="eyebrow">Inner Divine</p><h1>30-Day Divine Alignment</h1><p class="theme-line">One day. One intention. One lived practice.</p><p class="subtitle">A gentle 30-day rhythm designed to help the affirmations move from words into daily awareness and action.</p></header>
 <nav class="site-nav" aria-label="Main navigation">
 <a href="index.html">Home</a>
@@ -138,7 +164,7 @@ function renderGrid(){
   DAYS.forEach(d=>{
     const b=document.createElement("button");
     b.className="day-btn"+(d.day===selectedDay?" current":"")+(state.completed[d.day]?" done":"");
-    b.type="button"; b.setAttribute("aria-label","Day "+d.day+": "+d.title); b.title="Day "+d.day+" · "+d.title; b.innerHTML="<strong>Day "+d.day+"</strong><small>"+d.title+"</small>";
+    b.type="button"; b.setAttribute("aria-label","Day "+d.day+": "+d.title); b.title="Day "+d.day+" · "+d.title; b.innerHTML="<span class=\"day-num\">"+d.day+"</span><span class=\"day-title\">"+d.title+"</span>";
     b.onclick=()=>{ selectedDay=d.day; state.selectedDay=d.day; saveState(); render(); if(window.innerWidth<760){const target=document.querySelector(".practice-heading");window.scrollTo({top:target.offsetTop-82,behavior:"smooth"});} };
     grid.appendChild(b);
   });
