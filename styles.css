@@ -644,3 +644,54 @@ main{max-width:1080px;margin:0 auto;padding:28px 18px 72px}.section{margin:24px 
   .journey-page .meditation-timer{justify-content:flex-start}
   .journey-page .compact-ritual{grid-template-columns:1fr!important}
 }
+
+/* Align meditation beneath video and steps across the full practice */
+.journey-page .practice-grid{
+  align-items:start!important;
+}
+.journey-page .media-column,
+.journey-page .words-column{
+  display:flex!important;
+  flex-direction:column!important;
+  min-width:0!important;
+}
+.journey-page .meditation-under-video{
+  margin-top:10px!important;
+  min-height:0!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+}
+.journey-page .meditation-under-video .meditation-copy{
+  min-width:0!important;
+}
+.journey-page .meditation-under-video .meditation-prompt{
+  margin-top:3px!important;
+}
+.journey-page .practice-steps{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:8px!important;
+  margin:10px 0 0!important;
+}
+.journey-page .practice-steps div{
+  min-height:70px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+}
+@media(max-width:980px){
+  .journey-page .meditation-under-video{
+    grid-template-columns:1fr!important;
+  }
+  .journey-page .meditation-timer{
+    justify-content:flex-start!important;
+  }
+}
+@media(max-width:760px){
+  .journey-page .practice-steps{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:520px){
+  .journey-page .practice-steps{
+    grid-template-columns:1fr!important;
+  }
+}
