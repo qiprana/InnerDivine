@@ -146,15 +146,15 @@
                   </label>
                   <label for="meditationSound">When time ends
                     <select id="meditationSound">
-                      <option value="chimes" selected>3 gentle chimes</option>
-                      <option value="bowl">Soft singing bowl</option>
-                      <option value="voice">Spoken reminder</option>
+                      <option value="chimes">3 gentle chimes</option>
+                      <option value="bowl" selected>Soft singing bowl</option>
+                      <option value="bell">Single soft bell</option>
                       <option value="silent">Silent</option>
                     </select>
                   </label>
                   <button class="secondary-btn meditation-test-sound" id="meditationPreviewSound" type="button">♫ Test sound</button>
                 </div>
-                <p class="meditation-audio-note" id="meditationAudioNote">Close your eyes. Three gentle chimes will signal the end. Keep your device volume on.</p>
+                <p class="meditation-audio-note" id="meditationAudioNote">Close your eyes. A soft singing-bowl tone will signal the end. Keep your device volume on.</p>
               </div>
             </div>
           </div>
@@ -286,13 +286,14 @@ document.getElementById("saveReflection").onclick=()=>{
 // Keep meditation preferences separate from the existing 30-day progress and reflections.
 const meditationPreferencesKey="inner-divine-meditation-preferences-v2";
 let meditationLength=120,meditationRemaining=120,meditationEndsAt=0,meditationInterval=null;
-let meditationMode="idle",meditationAudioContext=null,meditationAudioNodes=[],meditationVoiceActive=false,meditationWakeLock=null;
+let meditationMode="idle",meditationAudioContext=null,meditationAudioNodes=[],meditationWakeLock=null;
 const meditationDurationSelect=document.getElementById("meditationDuration");
 const meditationSoundSelect=document.getElementById("meditationSound");
 try{
   const preferences=JSON.parse(localStorage.getItem(meditationPreferencesKey)||"{}");
   if([120,180,300].includes(preferences.duration))meditationDurationSelect.value=String(preferences.duration);
-  if(["chimes","bowl","voice","silent"].includes(preferences.sound))meditationSoundSelect.value=preferences.sound;
+  if(["chimes","bowl","bell","silent"].includes(preferences.sound))meditationSoundSelect.value=preferences.sound;
+  else if(preferences.sound==="voice")meditationSoundSelect.value="bowl"; // Migrate old spoken alerts to the gentle nonverbal tone.
 }catch(e){}
 meditationLength=Number(meditationDurationSelect.value);
 meditationRemaining=meditationLength;
@@ -350,53 +351,42 @@ function ensureMeditationAudio(){
 function stopMeditationSound(){
   for(const node of meditationAudioNodes){try{node.stop();}catch(e){}}
   meditationAudioNodes=[];
-  if(meditationVoiceActive&&"speechSynthesis" in window)window.speechSynthesis.cancel();
-  meditationVoiceActive=false;
 }
 function meditationTone(ctx,frequency,at,duration,volume){
   const oscillator=ctx.createOscillator(),gain=ctx.createGain();
   oscillator.type="sine";
   oscillator.frequency.setValueAtTime(frequency,at);
   gain.gain.setValueAtTime(0.0001,at);
-  gain.gain.exponentialRampToValueAtTime(volume,at+0.035);
+  gain.gain.exponentialRampToValueAtTime(volume,at+0.14);
   gain.gain.exponentialRampToValueAtTime(0.0001,at+duration);
   oscillator.connect(gain);gain.connect(ctx.destination);
   oscillator.start(at);oscillator.stop(at+duration+0.04);
   meditationAudioNodes.push(oscillator);
   oscillator.onended=()=>{meditationAudioNodes=meditationAudioNodes.filter(x=>x!==oscillator);oscillator.disconnect();gain.disconnect();};
 }
-function speakMeditationComplete(){
-  if(!("speechSynthesis" in window))return false;
-  const phrase=new SpeechSynthesisUtterance("Your meditation is complete. Gently return to the present moment.");
-  phrase.rate=0.84;phrase.pitch=0.94;phrase.volume=0.88;
-  meditationVoiceActive=true;
-  phrase.onend=()=>{meditationVoiceActive=false;};
-  window.speechSynthesis.speak(phrase);
-  return true;
-}
 function playMeditationSound(){
   stopMeditationSound();
   const choice=meditationSoundSelect.value;
   if(choice==="silent")return;
-  if(choice==="voice"){
-    if(!speakMeditationComplete())showMeditationNote("Spoken reminders are unavailable in this browser. Choose gentle chimes instead.",true);
-    return;
-  }
   const ctx=ensureMeditationAudio();
   if(!ctx){
-    if(!speakMeditationComplete())showMeditationNote("Sound playback is unavailable in this browser.",true);
+    showMeditationNote("This browser cannot play the ending tone. Try another browser or device.",true);
     return;
   }
   const now=ctx.currentTime+0.045;
+  // All endings use quiet sine tones and a gradual fade-in; no sudden spoken announcement.
   if(choice==="bowl"){
-    meditationTone(ctx,220,now,2.8,0.12);
-    meditationTone(ctx,330,now,2.4,0.038);
-    meditationTone(ctx,441,now,2.0,0.024);
+    meditationTone(ctx,196,now,3.4,0.052);
+    meditationTone(ctx,293.66,now,2.9,0.014);
+    meditationTone(ctx,392,now,2.4,0.008);
+  }else if(choice==="bell"){
+    meditationTone(ctx,392,now,2.6,0.040);
+    meditationTone(ctx,784,now,1.8,0.007);
   }else{
-    [523.25,659.25,783.99].forEach((hz,i)=>{
-      const at=now+i*0.72;
-      meditationTone(ctx,hz,at,1.2,0.10);
-      meditationTone(ctx,hz*2,at,0.85,0.018);
+    [392,493.88,587.33].forEach((hz,i)=>{
+      const at=now+i*0.95;
+      meditationTone(ctx,hz,at,1.7,0.046);
+      meditationTone(ctx,hz*2,at,1.1,0.007);
     });
   }
 }
@@ -404,7 +394,7 @@ function updateMeditationSoundNote(){
   const descriptions={
     chimes:"Close your eyes. Three gentle chimes will signal the end. Keep your device volume on.",
     bowl:"Close your eyes. A soft singing-bowl tone will signal the end. Keep your device volume on.",
-    voice:"A spoken reminder will announce the end, when supported by your browser.",
+    bell:"One soft bell will signal the end without interrupting your quiet.",
     silent:"Silent mode: watch the timer to know when your meditation ends."
   };
   showMeditationNote(descriptions[meditationSoundSelect.value]);
@@ -487,5 +477,5 @@ document.getElementById("resetBtn").onclick=()=>{
 };
 render();
 </script>
-<!-- pages-build: 2026-11-10-meditation-controls-v2 -->
+<!-- pages-build: 2026-11-10-gentle-audio-v3 -->
 </body></html>
