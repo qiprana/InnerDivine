@@ -602,3 +602,45 @@ main{max-width:1080px;margin:0 auto;padding:28px 18px 72px}.section{margin:24px 
 @media(max-width:620px){
   .journey-page .rail-day-grid{grid-template-columns:1fr 1fr!important}
 }
+
+/* 2-minute meditation step */
+.journey-page .meditation-card{
+  margin-top:10px;
+  padding:12px 14px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:14px;
+  align-items:center;
+  border:1px solid rgba(185,155,99,.28);
+  border-radius:14px;
+  background:rgba(185,155,99,.07);
+}
+.journey-page .meditation-copy p{margin:0}
+.journey-page .meditation-prompt{
+  color:var(--muted);
+  font-size:.88rem;
+  line-height:1.45;
+}
+.journey-page .meditation-timer{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  white-space:nowrap;
+}
+.journey-page .timer-display{
+  min-width:52px;
+  text-align:center;
+  color:var(--plum-deep);
+  font:700 1rem/1 Arial,Helvetica,sans-serif;
+}
+.journey-page .compact-ritual{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+}
+@media(max-width:980px){
+  .journey-page .compact-ritual{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:760px){
+  .journey-page .meditation-card{grid-template-columns:1fr}
+  .journey-page .meditation-timer{justify-content:flex-start}
+  .journey-page .compact-ritual{grid-template-columns:1fr!important}
+}
