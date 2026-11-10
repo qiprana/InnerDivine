@@ -241,3 +241,136 @@ main{max-width:1080px;margin:0 auto;padding:28px 18px 72px}.section{margin:24px 
   .compact-day-grid .day-btn strong{font-size:.84rem!important}
   .today-panel{padding:22px!important}
 }
+
+/* Spacious 30-Day Divine Alignment layout */
+.spacious-workspace{padding:24px!important}
+.journey-shell{
+  display:grid!important;
+  grid-template-columns:136px minmax(0,1fr)!important;
+  gap:28px!important;
+  align-items:start!important;
+}
+.day-rail{
+  position:sticky;
+  top:76px;
+  align-self:start;
+  padding:14px 10px;
+  border:1px solid rgba(118,83,109,.14);
+  border-radius:18px;
+  background:rgba(255,250,245,.9);
+}
+.rail-kicker{
+  margin:0 0 10px;
+  text-align:center;
+  color:var(--gold);
+  font:700 .72rem/1.2 Arial,Helvetica,sans-serif;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.rail-day-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,1fr)!important;
+  gap:6px!important;
+  margin:0!important;
+}
+.rail-day-grid .day-btn{
+  min-height:36px!important;
+  padding:5px 2px!important;
+  text-align:center!important;
+  border-radius:9px!important;
+}
+.rail-day-grid .day-btn strong{
+  display:block!important;
+  font-size:.76rem!important;
+  line-height:1!important;
+}
+.rail-day-grid .day-btn small{display:none!important}
+.rail-day-grid .day-btn.done::after{
+  display:block!important;
+  margin-top:1px!important;
+  font-size:.62rem!important;
+}
+.rail-reset{
+  width:100%;
+  margin-top:10px;
+  padding:7px 8px!important;
+  font-size:.7rem!important;
+}
+.practice-area{min-width:0}
+.practice-heading{
+  display:flex;
+  justify-content:space-between;
+  gap:24px;
+  align-items:flex-start;
+  margin-bottom:18px;
+}
+.practice-heading h2{
+  margin:4px 0 4px!important;
+  font-size:clamp(2rem,3vw,3rem)!important;
+}
+.heading-actions{
+  margin-top:0!important;
+  justify-content:flex-end;
+}
+.practice-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:26px;
+  align-items:start;
+}
+.media-column .video-card{margin-top:0!important}
+.media-column .video-placeholder{
+  min-height:360px!important;
+  height:100%;
+}
+.spacious-words{
+  margin:0!important;
+  min-height:360px!important;
+  padding:30px 32px!important;
+}
+.spacious-words .daily-affirmation{
+  font-size:clamp(1.35rem,1.8vw,1.75rem)!important;
+  line-height:1.58!important;
+}
+.compact-ritual{
+  grid-template-columns:1fr!important;
+  gap:8px!important;
+  margin-top:14px!important;
+}
+.compact-ritual div{
+  padding:11px 13px!important;
+}
+.reflection-wide{
+  margin-top:26px!important;
+  padding:24px!important;
+}
+.reflection-wide textarea{
+  min-height:120px;
+}
+.reflection-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:10px;
+}
+@media(max-width:980px){
+  .journey-shell{grid-template-columns:112px minmax(0,1fr)!important;gap:20px!important}
+  .practice-grid{grid-template-columns:1fr!important}
+  .media-column .video-placeholder,.spacious-words{min-height:280px!important}
+}
+@media(max-width:860px){
+  .journey-shell{grid-template-columns:1fr!important}
+  .day-rail{position:static}
+  .rail-day-grid{grid-template-columns:repeat(10,1fr)!important}
+  .rail-reset{width:auto}
+  .practice-heading{display:block}
+  .heading-actions{justify-content:flex-start;margin-top:14px!important}
+}
+@media(max-width:620px){
+  .spacious-workspace{padding:18px!important}
+  .rail-day-grid{grid-template-columns:repeat(6,1fr)!important}
+  .practice-grid{gap:18px}
+  .spacious-words{padding:22px 20px!important;min-height:0!important}
+  .media-column .video-placeholder{min-height:220px!important}
+  .practice-heading h2{font-size:2rem!important}
+}
