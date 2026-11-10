@@ -7,10 +7,10 @@
 </head><body>
 <header class="hero"><p class="eyebrow">Inner Divine</p><h1>30-Day Affirmation Journey</h1><p class="theme-line">One day. One intention. One lived practice.</p><p class="subtitle">A gentle 30-day rhythm designed to help the affirmations move from words into daily awareness and action.</p></header>
 <nav class="site-nav" aria-label="Main navigation">
-<a href="index.html">Divine Alignment</a>
-<a href="affirmations.html">Affirmations</a>
-<a href="journey.html" class="active">30-Day Journey</a>
+<a href="index.html">Home</a>
 <a href="why-affirmations.html">Why Affirmations?</a>
+<a href="journey.html" class="active">30-Day Journey</a>
+<a href="affirmations.html">Affirmations</a>
 <a href="meditations.html">Daily Intentions</a>
 </nav>
 <main>
@@ -26,7 +26,18 @@
 <div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div></div>
 </section>
 
-<section class="section">
+<section class="section journey-workspace">
+<div class="journey-layout">
+<aside class="journey-sidebar" aria-label="30-day journey map">
+  <div class="journey-sidebar-head">
+    <p class="page-kicker">30 days</p>
+    <h2>Journey Map</h2>
+    <p class="sidebar-intro">Choose a day to revisit it.</p>
+  </div>
+  <div class="day-grid compact-day-grid" id="dayGrid"></div>
+  <button class="secondary-btn danger-soft reset-compact" id="resetBtn" type="button">Reset journey</button>
+</aside>
+<div class="journey-main">
 <div class="journey-top">
 <div class="today-panel">
 <p class="day-label" id="dayLabel">Day 1 of 30</p>
@@ -60,14 +71,8 @@
 </div>
 </div>
 </div>
-</section>
-
-<section class="section">
-<p class="page-kicker">30 days</p>
-<h2>Journey Map</h2>
-<p class="intro">Choose any day to revisit it. Completed days stay marked on this browser.</p>
-<div class="day-grid" id="dayGrid"></div>
-<div class="journey-actions"><button class="secondary-btn danger-soft" id="resetBtn" type="button">Reset this journey</button></div>
+</div>
+</div>
 </section>
 </main>
 <footer class="footer">Inner Divine • 30-Day Journey</footer>
@@ -123,7 +128,7 @@ function renderGrid(){
     const b=document.createElement("button");
     b.className="day-btn"+(d.day===selectedDay?" current":"")+(state.completed[d.day]?" done":"");
     b.type="button"; b.innerHTML="<strong>Day "+d.day+"</strong><small>"+d.title+"</small>";
-    b.onclick=()=>{ selectedDay=d.day; state.selectedDay=d.day; saveState(); render(); window.scrollTo({top:document.querySelector(".today-panel").offsetTop-110,behavior:"smooth"}); };
+    b.onclick=()=>{ selectedDay=d.day; state.selectedDay=d.day; saveState(); render(); const target=document.querySelector(".journey-main"); if(window.innerWidth<900) window.scrollTo({top:target.offsetTop-95,behavior:"smooth"}); };
     grid.appendChild(b);
   });
 }
