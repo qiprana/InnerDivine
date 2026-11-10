@@ -30,52 +30,58 @@
   <div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div></div>
 </section>
 
-<section class="section journey-workspace">
-  <div class="journey-layout">
-    <aside class="journey-sidebar" aria-label="30-day Divine Alignment map">
-      <div class="journey-sidebar-head">
-        <p class="page-kicker">30 days</p>
-        <h2>Journey Map</h2>
-        <p class="sidebar-intro">Choose any day.</p>
-      </div>
-      <div class="day-grid compact-day-grid" id="dayGrid"></div>
-      <button class="secondary-btn danger-soft reset-compact" id="resetBtn" type="button">Reset journey</button>
+<section class="section journey-workspace spacious-workspace">
+  <div class="journey-shell">
+    <aside class="day-rail" aria-label="30-day Divine Alignment navigation">
+      <p class="rail-kicker">30 Days</p>
+      <div class="day-grid rail-day-grid" id="dayGrid"></div>
+      <button class="secondary-btn danger-soft rail-reset" id="resetBtn" type="button">Reset</button>
     </aside>
 
-    <div class="journey-main">
-      <div class="journey-top">
-        <div class="today-panel">
+    <div class="practice-area">
+      <div class="practice-heading">
+        <div>
           <p class="day-label" id="dayLabel">Day 1 of 30</p>
           <h2 id="dayTitle">Divine Alignment</h2>
           <p class="source-note" id="sourceTitle"></p>
-          <div class="day-words-panel">
+        </div>
+        <div class="journey-actions heading-actions">
+          <button class="primary-btn" id="completeBtn" type="button">Mark today complete</button>
+          <button class="secondary-btn" id="nextBtn" type="button">Next day →</button>
+        </div>
+      </div>
+
+      <div class="practice-grid">
+        <div class="media-column">
+          <div id="videoArea"></div>
+        </div>
+
+        <div class="words-column">
+          <div class="day-words-panel spacious-words">
             <p class="words-kicker">Words for today</p>
             <blockquote class="daily-affirmation" id="dayAffirmation"></blockquote>
             <p class="words-note">Read slowly. Pause between phrases. Let the words stay with you through the day.</p>
           </div>
-          <div class="ritual">
+
+          <div class="ritual compact-ritual">
             <div><strong>1 · Arrive</strong><br><span>Take three easy breaths.</span></div>
             <div><strong>2 · Listen</strong><br><span>Hear or read the words slowly.</span></div>
             <div><strong>3 · Live</strong><br><span>Carry one quality into your day.</span></div>
           </div>
-          <div class="journey-actions">
-            <button class="primary-btn" id="completeBtn" type="button">Mark today complete</button>
-            <button class="secondary-btn" id="nextBtn" type="button">Next day →</button>
-          </div>
-          <p class="privacy-note">Completion is stored locally on this device. Clearing browser storage will clear the tracker.</p>
-        </div>
-
-        <div>
-          <div id="videoArea"></div>
-          <div class="reflection-card">
-            <p class="page-kicker">A tiny reflection</p>
-            <label for="reflection">What do I want to remember from this affirmation?</label>
-            <textarea id="reflection" rows="5" placeholder="Write a sentence for yourself…"></textarea>
-            <button class="secondary-btn" id="saveReflection" type="button">Save reflection</button>
-            <span class="save-status" id="saveStatus" aria-live="polite"></span>
-          </div>
         </div>
       </div>
+
+      <div class="reflection-card reflection-wide">
+        <p class="page-kicker">A tiny reflection</p>
+        <label for="reflection">What do I want to remember from this affirmation?</label>
+        <textarea id="reflection" rows="4" placeholder="Write a sentence for yourself…"></textarea>
+        <div class="reflection-actions">
+          <button class="secondary-btn" id="saveReflection" type="button">Save reflection</button>
+          <span class="save-status" id="saveStatus" aria-live="polite"></span>
+        </div>
+      </div>
+
+      <p class="privacy-note">Completion is stored locally on this device. Clearing browser storage will clear the tracker.</p>
     </div>
   </div>
 </section>
