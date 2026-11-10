@@ -138,7 +138,7 @@ function renderGrid(){
   DAYS.forEach(d=>{
     const b=document.createElement("button");
     b.className="day-btn"+(d.day===selectedDay?" current":"")+(state.completed[d.day]?" done":"");
-    b.type="button"; b.setAttribute("aria-label","Day "+d.day+": "+d.title); b.title="Day "+d.day+" · "+d.title; b.innerHTML="<strong>"+d.day+"</strong>";
+    b.type="button"; b.setAttribute("aria-label","Day "+d.day+": "+d.title); b.title="Day "+d.day+" · "+d.title; b.innerHTML="<strong>Day "+d.day+"</strong><small>"+d.title+"</small>";
     b.onclick=()=>{ selectedDay=d.day; state.selectedDay=d.day; saveState(); render(); if(window.innerWidth<760){const target=document.querySelector(".practice-heading");window.scrollTo({top:target.offsetTop-82,behavior:"smooth"});} };
     grid.appendChild(b);
   });
