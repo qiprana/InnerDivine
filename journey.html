@@ -89,10 +89,22 @@
             <p class="words-note">Read slowly. Pause between phrases. Let the words stay with you through the day.</p>
           </div>
 
+          <div class="meditation-card">
+            <div class="meditation-copy">
+              <p class="words-kicker">2-Minute Inner Pause</p>
+              <p class="meditation-prompt" id="meditationPrompt"></p>
+            </div>
+            <div class="meditation-timer">
+              <div class="timer-display" id="timerDisplay">2:00</div>
+              <button class="secondary-btn" id="meditateBtn" type="button">Start 2-min meditation</button>
+            </div>
+          </div>
+
           <div class="ritual compact-ritual">
             <div><strong>1 · Arrive</strong><br><span>Take three easy breaths.</span></div>
-            <div><strong>2 · Listen</strong><br><span>Hear or read the words slowly.</span></div>
-            <div><strong>3 · Live</strong><br><span>Carry one quality into your day.</span></div>
+            <div><strong>2 · Receive</strong><br><span>Read or listen slowly.</span></div>
+            <div><strong>3 · Meditate</strong><br><span>Rest with the intention for 2 minutes.</span></div>
+            <div><strong>4 · Live</strong><br><span>Carry one quality into your day.</span></div>
           </div>
         </div>
       </div>
@@ -178,11 +190,18 @@ function renderVideo(day){
   }
 }
 function renderDay(){
+  if(meditationInterval){ clearInterval(meditationInterval); meditationInterval=null; }
+  meditationRemaining=120;
+  const timer=document.getElementById("timerDisplay");
+  const meditateBtn=document.getElementById("meditateBtn");
+  if(timer) timer.textContent="2:00";
+  if(meditateBtn) meditateBtn.textContent="Start 2-min meditation";
   const d=DAYS[selectedDay-1];
   document.getElementById("dayLabel").textContent="Day "+d.day+" of 30";
   document.getElementById("dayTitle").textContent=d.title;
   document.getElementById("sourceTitle").textContent="From: "+d.sourceTitle;
   document.getElementById("dayAffirmation").textContent=d.affirmation;
+  document.getElementById("meditationPrompt").textContent="Close your eyes and rest with the words, the intention behind them, or simply the energy they represent. For today, gently feel into: “"+d.title+".”";
   document.getElementById("reflection").value=state.reflections[d.day]||"";
   const btn=document.getElementById("completeBtn");
   btn.textContent=state.completed[d.day]?"Completed ✓":"Mark today complete";
@@ -202,6 +221,35 @@ document.getElementById("saveReflection").onclick=()=>{
   saveState();
   const s=document.getElementById("saveStatus"); s.textContent="Saved"; setTimeout(()=>s.textContent="",1300);
 };
+let meditationInterval=null;
+let meditationRemaining=120;
+function updateTimer(){
+  const m=Math.floor(meditationRemaining/60);
+  const s=String(meditationRemaining%60).padStart(2,"0");
+  document.getElementById("timerDisplay").textContent=m+":"+s;
+}
+document.getElementById("meditateBtn").onclick=()=>{
+  const btn=document.getElementById("meditateBtn");
+  if(meditationInterval){
+    clearInterval(meditationInterval);
+    meditationInterval=null;
+    btn.textContent="Resume meditation";
+    return;
+  }
+  if(meditationRemaining<=0) meditationRemaining=120;
+  btn.textContent="Pause";
+  meditationInterval=setInterval(()=>{
+    meditationRemaining--;
+    updateTimer();
+    if(meditationRemaining<=0){
+      clearInterval(meditationInterval);
+      meditationInterval=null;
+      btn.textContent="Meditate again";
+      document.getElementById("timerDisplay").textContent="Done";
+    }
+  },1000);
+};
+
 document.getElementById("resetBtn").onclick=()=>{
   if(confirm("Reset all 30-day progress and reflections on this browser?")){
     state={completed:{},reflections:{},selectedDay:1}; selectedDay=1; saveState(); render();
