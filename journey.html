@@ -2,10 +2,10 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="A private 30-day Inner Divine affirmation journey with local progress tracking.">
-<title>30-Day Journey | Inner Divine</title>
+<title>30-Day Divine Alignment | Inner Divine</title>
 <link rel="stylesheet" href="styles.css">
-</head><body>
-<header class="hero"><p class="eyebrow">Inner Divine</p><h1>30-Day Affirmation Journey</h1><p class="theme-line">One day. One intention. One lived practice.</p><p class="subtitle">A gentle 30-day rhythm designed to help the affirmations move from words into daily awareness and action.</p></header>
+</head><body class="journey-page">
+<header class="hero"><p class="eyebrow">Inner Divine</p><h1>30-Day Divine Alignment</h1><p class="theme-line">One day. One intention. One lived practice.</p><p class="subtitle">A gentle 30-day rhythm designed to help the affirmations move from words into daily awareness and action.</p></header>
 <nav class="site-nav" aria-label="Main navigation">
 <a href="index.html">Home</a>
 <a href="why-affirmations.html">Why Affirmations?</a>
@@ -138,8 +138,8 @@ function renderGrid(){
   DAYS.forEach(d=>{
     const b=document.createElement("button");
     b.className="day-btn"+(d.day===selectedDay?" current":"")+(state.completed[d.day]?" done":"");
-    b.type="button"; b.innerHTML="<strong>Day "+d.day+"</strong><small>"+d.title+"</small>";
-    b.onclick=()=>{ selectedDay=d.day; state.selectedDay=d.day; saveState(); render(); const target=document.querySelector(".journey-main"); if(window.innerWidth<900) window.scrollTo({top:target.offsetTop-95,behavior:"smooth"}); };
+    b.type="button"; b.setAttribute("aria-label","Day "+d.day+": "+d.title); b.title="Day "+d.day+" · "+d.title; b.innerHTML="<strong>"+d.day+"</strong>";
+    b.onclick=()=>{ selectedDay=d.day; state.selectedDay=d.day; saveState(); render(); if(window.innerWidth<760){const target=document.querySelector(".practice-heading");window.scrollTo({top:target.offsetTop-82,behavior:"smooth"});} };
     grid.appendChild(b);
   });
 }
