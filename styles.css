@@ -695,3 +695,34 @@ main{max-width:1080px;margin:0 auto;padding:28px 18px 72px}.section{margin:24px 
     grid-template-columns:1fr!important;
   }
 }
+
+/* Balanced two-column daily practice */
+.journey-page .media-column,
+.journey-page .words-column{
+  display:flex!important;
+  flex-direction:column!important;
+  min-width:0!important;
+}
+.journey-page .meditation-under-video{
+  margin-top:10px!important;
+  grid-template-columns:1fr!important;
+  gap:10px!important;
+}
+.journey-page .meditation-under-video .meditation-timer{
+  justify-content:flex-start!important;
+}
+.journey-page .practice-steps{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;
+  margin-top:10px!important;
+}
+.journey-page .practice-steps div{
+  min-height:82px!important;
+  padding:10px 12px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+}
+@media(max-width:760px){
+  .journey-page .practice-steps{grid-template-columns:1fr!important}
+}
