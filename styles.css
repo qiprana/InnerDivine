@@ -158,3 +158,86 @@ main{max-width:1080px;margin:0 auto;padding:28px 18px 72px}.section{margin:24px 
   .compact-day-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
   .compact-day-grid .day-btn{min-height:40px}
 }
+
+/* Hard override: 30-Day Divine Alignment left rail */
+.journey-workspace{padding:22px!important}
+.journey-layout{
+  display:grid!important;
+  grid-template-columns:190px minmax(0,1fr)!important;
+  gap:22px!important;
+  align-items:start!important;
+}
+.journey-sidebar{
+  position:sticky!important;
+  top:76px!important;
+  align-self:start!important;
+  max-height:calc(100vh - 92px)!important;
+  overflow-y:auto!important;
+  padding:16px!important;
+  border:1px solid rgba(118,83,109,.18)!important;
+  border-radius:18px!important;
+  background:rgba(255,250,245,.96)!important;
+  box-shadow:0 10px 24px rgba(80,58,72,.08)!important;
+}
+.journey-sidebar-head h2{
+  font-size:1.35rem!important;
+  margin:2px 0 2px!important;
+  line-height:1.2!important;
+}
+.sidebar-intro{
+  font-size:.92rem!important;
+  margin:0 0 12px!important;
+}
+.compact-day-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;
+  margin:0!important;
+}
+.compact-day-grid .day-btn{
+  min-height:54px!important;
+  padding:8px 6px!important;
+  border-radius:11px!important;
+  text-align:center!important;
+}
+.compact-day-grid .day-btn strong{
+  display:block!important;
+  font-size:.92rem!important;
+  line-height:1.15!important;
+  font-weight:700!important;
+}
+.compact-day-grid .day-btn small{
+  display:none!important;
+}
+.compact-day-grid .day-btn.done::after{
+  display:block!important;
+  margin-top:3px!important;
+  font-size:.78rem!important;
+}
+.journey-main{min-width:0!important}
+.journey-main .journey-top{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr)!important;
+  gap:22px!important;
+  align-items:start!important;
+}
+.today-panel{padding:30px!important}
+.day-label{
+  font-size:.9rem!important;
+  letter-spacing:.12em!important;
+}
+.day-words-panel .daily-affirmation{
+  font-size:clamp(1.45rem,2.2vw,1.85rem)!important;
+  line-height:1.55!important;
+}
+@media(max-width:900px){
+  .journey-layout{grid-template-columns:1fr!important}
+  .journey-sidebar{position:static!important;max-height:none!important}
+  .compact-day-grid{grid-template-columns:repeat(6,minmax(0,1fr))!important}
+  .journey-main .journey-top{grid-template-columns:1fr!important}
+}
+@media(max-width:620px){
+  .compact-day-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+  .compact-day-grid .day-btn strong{font-size:.84rem!important}
+  .today-panel{padding:22px!important}
+}
