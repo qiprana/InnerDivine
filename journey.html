@@ -66,11 +66,13 @@
 @media(max-width:560px){.journey-page .meditation-timer-expanded{grid-template-columns:1fr!important;justify-items:stretch!important}.journey-page .meditation-clock-wrap{justify-content:flex-start}.journey-page .meditation-actions button{flex:1 1 auto}.journey-page .meditation-options label{flex:1 1 130px}.journey-page .practice-steps>div{min-height:78px!important}}
 </style>
 
-<style id="core-video-final-v1">
+<style id="core-video-final-v2">
 .journey-page .daily-core-video-shell{display:flex;flex-direction:column;gap:10px}
-.journey-page .daily-core-video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid rgba(118,83,109,.16);border-radius:18px;background:#17131a;box-shadow:0 12px 30px rgba(72,48,66,.10)}
-.journey-page .daily-core-video-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.journey-page .daily-core-video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid rgba(118,83,109,.16);border-radius:18px;background:#f4eee8;box-shadow:0 12px 30px rgba(72,48,66,.10)}
+.journey-page .daily-core-video-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:end}
 .journey-page .daily-core-video-actions button{min-width:108px}
+.journey-page .repeat-control{display:flex;flex-direction:column;gap:4px;align-items:flex-start;color:#685862;font:600 .72rem/1.2 Arial,Helvetica,sans-serif}
+.journey-page .repeat-control select{min-height:42px;padding:8px 30px 8px 10px;border:1px solid #d3c3b7;border-radius:12px;background:#fffaf5;color:#453449;font:600 .84rem/1.2 Arial,Helvetica,sans-serif}
 @media(max-width:760px){.journey-page .daily-core-video{min-height:0!important;height:auto!important}}
 </style>
 </head><body class="journey-page">
@@ -295,17 +297,29 @@ function renderVideo(day){
   stopDailyCore();
   const area=document.getElementById("videoArea");
   if(day.coreIndex && day.video){
+    const coreNo=String(day.coreIndex).padStart(2,"0");
     area.innerHTML='<div class="daily-core-video-shell">'+
-      '<video class="daily-core-video" id="dailyCoreVideo" preload="metadata" playsinline src="'+day.video+'" aria-label="'+day.title+' affirmation video"></video>'+
-      '<div class="daily-core-video-actions"><button class="primary-btn" id="dailyCorePlay" type="button">Play</button><button class="secondary-btn" id="dailyCoreStop" type="button" disabled>Stop</button></div>'+
-      '</div>';
+      '<video class="daily-core-video" id="dailyCoreVideo" preload="metadata" playsinline poster="videos/posters/core_'+coreNo+'.jpg" src="'+day.video+'" aria-label="'+day.title+' affirmation video"></video>'+
+      '<div class="daily-core-video-actions">'+
+      '<button class="primary-btn" id="dailyCorePlay" type="button">Play</button>'+
+      '<button class="secondary-btn" id="dailyCoreStop" type="button" disabled>Stop</button>'+
+      '<label class="repeat-control">Repeat<select id="dailyCoreRepeat" aria-label="Repeat video"><option value="1">1×</option><option value="2">2×</option><option value="3">3×</option><option value="5">5×</option><option value="loop">Loop</option></select></label>'+
+      '</div></div>';
     const video=document.getElementById("dailyCoreVideo");
     const btn=document.getElementById("dailyCorePlay");
     const stopBtn=document.getElementById("dailyCoreStop");
-    btn.onclick=()=>{
-      if(dailyCoreAudio && dailyCoreAudio!==video) stopDailyCore();
+    const repeat=document.getElementById("dailyCoreRepeat");
+    let playsLeft=1;
+    function setRepeatCount(){playsLeft=repeat.value==="loop"?Infinity:Math.max(1,Number(repeat.value)||1);}
+    function playFromStart(){
+      video.currentTime=0;
       dailyCoreAudio=video;
       video.play().then(()=>{btn.textContent="Playing…";stopBtn.disabled=false;}).catch(()=>{btn.textContent="Play";stopBtn.disabled=true;});
+    }
+    btn.onclick=()=>{
+      if(dailyCoreAudio && dailyCoreAudio!==video) stopDailyCore();
+      setRepeatCount();
+      playFromStart();
     };
     stopBtn.onclick=()=>{
       video.pause();
@@ -313,8 +327,15 @@ function renderVideo(day){
       dailyCoreAudio=null;
       btn.textContent="Play";
       stopBtn.disabled=true;
+      setRepeatCount();
     };
-    video.addEventListener("ended",()=>{dailyCoreAudio=null;btn.textContent="Play again";stopBtn.disabled=true;});
+    repeat.onchange=()=>{ if(video.paused) setRepeatCount(); };
+    video.addEventListener("ended",()=>{
+      if(playsLeft===Infinity){ playFromStart(); return; }
+      playsLeft-=1;
+      if(playsLeft>0){ playFromStart(); return; }
+      dailyCoreAudio=null;btn.textContent="Play again";stopBtn.disabled=true;
+    });
   }else{
     area.innerHTML='<div class="video-placeholder custom-day-visual"><div><strong>'+day.title+'</strong><span>Custom affirmation practice</span></div></div>';
   }
@@ -549,5 +570,5 @@ document.getElementById("resetBtn").onclick=()=>{
 };
 render();
 </script>
-<!-- pages-build: 2026-11-10-gentle-audio-v3 -->
+<!-- pages-build: 2026-11-20-core-posters-repeat-v4 -->
 </body></html>
