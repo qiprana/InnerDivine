@@ -313,6 +313,7 @@ function updateDailyCorePhrase(day){
     stopDailyCore();
     const btn=document.getElementById("dailyCorePlay");
     if(btn)btn.textContent="Play again";
+    const stopBtn=document.getElementById("dailyCoreStop"); if(stopBtn)stopBtn.disabled=true;
   }
 }
 function renderVideo(day){
@@ -324,9 +325,10 @@ function renderVideo(day){
       '<h3>'+day.title+'</h3>'+
       '<div class="daily-core-phrase" id="dailyCorePhrase">'+day.phrases[0]+'</div>'+
       '<div class="daily-core-progress-track"><span id="dailyCoreProgress"></span></div>'+
-      '<div class="daily-core-actions"><button class="primary-btn" id="dailyCorePlay" type="button">Play affirmation</button></div>'+
+      '<div class="daily-core-actions"><button class="primary-btn" id="dailyCorePlay" type="button">Play</button><button class="secondary-btn" id="dailyCoreStop" type="button" disabled>Stop</button></div>'+
       '</div>';
     const btn=document.getElementById("dailyCorePlay");
+    const stopBtn=document.getElementById("dailyCoreStop");
     btn.onclick=()=>{
       stopDailyCore();
       dailyCoreAudio=new Audio(day.audio);
@@ -336,11 +338,19 @@ function renderVideo(day){
         dailyCoreAudio.play().then(()=>{
           dailyAmbientOn();
           btn.textContent="Playing…";
+          stopBtn.disabled=false;
           dailyCoreTicker=setInterval(()=>updateDailyCorePhrase(day),120);
-        }).catch(()=>{btn.textContent="Play affirmation";});
+        }).catch(()=>{btn.textContent="Play"; stopBtn.disabled=true;});
       };
       if(dailyCoreAudio.readyState>=1)startPlayback();
       else dailyCoreAudio.addEventListener("loadedmetadata",startPlayback,{once:true});
+    };
+    stopBtn.onclick=()=>{
+      stopDailyCore();
+      btn.textContent="Play";
+      stopBtn.disabled=true;
+      const progress=document.getElementById("dailyCoreProgress"); if(progress)progress.style.width="0%";
+      const phrase=document.getElementById("dailyCorePhrase"); if(phrase)phrase.textContent=day.phrases[0];
     };
   }else{
     area.innerHTML='<div class="video-placeholder custom-day-visual"><div><strong>'+day.title+'</strong><span>Custom affirmation practice</span></div></div>';
