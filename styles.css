@@ -726,3 +726,102 @@ main{max-width:1080px;margin:0 auto;padding:28px 18px 72px}.section{margin:24px 
 @media(max-width:760px){
   .journey-page .practice-steps{grid-template-columns:1fr!important}
 }
+
+/* Custom affirmations + action-oriented teaching */
+.action-flow{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  margin:22px 0;
+}
+.action-flow div{
+  padding:18px;
+  border:1px solid rgba(118,83,109,.14);
+  border-radius:16px;
+  background:rgba(255,250,245,.86);
+}
+.action-flow strong{
+  display:block;
+  color:var(--plum-deep);
+  margin-bottom:5px;
+}
+.action-flow span{color:var(--muted);font-size:.92rem}
+.template-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+.template-card{
+  padding:22px;
+  border:1px solid rgba(118,83,109,.14);
+  border-radius:18px;
+  background:rgba(255,250,245,.86);
+}
+.template-card h3{margin-top:0}
+.template-card p{margin:.7em 0}
+.application-example{
+  display:grid;
+  grid-template-columns:minmax(0,.8fr) auto minmax(0,1.15fr) auto minmax(0,1.35fr);
+  gap:12px;
+  align-items:stretch;
+  margin:18px 0;
+}
+.application-question,.application-result{
+  padding:18px;
+  border-radius:16px;
+  border:1px solid rgba(118,83,109,.14);
+  background:#fffaf5;
+}
+.application-result{
+  background:rgba(185,155,99,.09);
+  border-color:rgba(185,155,99,.30);
+}
+.application-question strong,.application-result strong{
+  display:block;
+  color:var(--gold);
+  margin-bottom:6px;
+  font:700 .72rem/1.2 Arial,Helvetica,sans-serif;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.application-question p,.application-result p{margin:0}
+.application-arrow{
+  display:grid;
+  place-items:center;
+  color:var(--gold);
+  font-size:1.4rem;
+}
+.placeholder-section{
+  min-height:360px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+/* 30-day reset + reshuffle controls */
+.rail-actions{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:7px;
+  margin-top:10px;
+}
+.rail-actions .secondary-btn{
+  width:100%;
+  margin:0!important;
+  padding:7px 8px!important;
+  font-size:.7rem!important;
+}
+.rail-shuffle{
+  border-color:rgba(185,155,99,.55)!important;
+  color:var(--plum-deep)!important;
+  background:rgba(185,155,99,.08)!important;
+}
+@media(max-width:900px){
+  .rail-actions{grid-template-columns:auto auto;justify-content:start}
+  .rail-actions .secondary-btn{width:auto}
+}
+@media(max-width:760px){
+  .action-flow,.template-grid{grid-template-columns:1fr}
+  .application-example{grid-template-columns:1fr}
+  .application-arrow{transform:rotate(90deg);min-height:22px}
+}
