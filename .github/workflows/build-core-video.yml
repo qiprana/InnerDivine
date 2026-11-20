@@ -23,15 +23,10 @@ jobs:
         run: |
           set -e
           mkdir -p videos/posters
-          cat > /tmp/core_concat.txt <<'EOF'
-          file '$GITHUB_WORKSPACE/videos/core_01_final.mp4'
-          file '$GITHUB_WORKSPACE/videos/core_02_final.mp4'
-          file '$GITHUB_WORKSPACE/videos/core_03_final.mp4'
-          file '$GITHUB_WORKSPACE/videos/core_04_final.mp4'
-          file '$GITHUB_WORKSPACE/videos/core_05_final.mp4'
-          file '$GITHUB_WORKSPACE/videos/core_06_final.mp4'
-          file '$GITHUB_WORKSPACE/videos/core_07_final.mp4'
-          EOF
+          : > /tmp/core_concat.txt
+          for i in 01 02 03 04 05 06 07; do
+            printf "file '%s/videos/core_%s_final.mp4'\n" "$PWD" "$i" >> /tmp/core_concat.txt
+          done
           ffmpeg -y -f concat -safe 0 -i /tmp/core_concat.txt -c copy /tmp/core_joined.mp4
           DURATION=$(ffprobe -v error -show_entries format=duration -of csv=p=0 /tmp/core_joined.mp4)
           OUT_START=$(python3 -c "print(max(0,float('$DURATION')-2.0))")
