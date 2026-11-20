@@ -3,7 +3,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="A private 30-day Inner Divine affirmation journey with local progress tracking.">
 <title>30-Day Divine Alignment | Inner Divine</title>
-<link rel="stylesheet" href="styles.css?v=20261120-1200">
+<link rel="stylesheet" href="styles.css?v=20261120-1335">
 
 <style id="journey-critical">
 .journey-page .journey-shell{display:grid!important;grid-template-columns:240px minmax(0,1fr)!important;gap:18px!important;align-items:start!important}
@@ -123,7 +123,6 @@
           <div class="meditation-card meditation-under-video">
             <div class="meditation-copy">
               <p class="words-kicker">2-Minute Inner Pause</p>
-              <p class="meditation-prompt" id="meditationPrompt"></p>
             </div>
             <div class="meditation-timer meditation-timer-expanded" id="meditationControls">
               <div class="meditation-clock-wrap">
@@ -197,7 +196,7 @@
 </main>
 <footer class="footer">Inner Divine • 30-Day Divine Alignment</footer>
 <script>
-const AFFIRMATION_POOL = [{"title":"Divine Alignment","affirmation":"I am grateful to you for the divine grace and conscious awareness that align my daily choices, words, and actions with my highest spiritual purpose.","sourceTitle":"Core Affirmations · Divine Alignment","video":"A_Channel_for_Grace.mp4"},{"title":"An Instrument of Love","affirmation":"I am grateful to you for making me an instrument of your love and grace to all the kind, caring, and loving souls you have surrounded me with.","sourceTitle":"Core Affirmations · An Instrument of Love","video":null},{"title":"A Channel of Grace","affirmation":"I am grateful to you for making me your channel to stream your love and blessings to everyone around me.","sourceTitle":"Core Affirmations · A Channel of Grace","video":null},{"title":"Healthy Body, Loving Mind","affirmation":"I am grateful to you for the gift of this healthy resilient body; a pure loving mind always aware that we are all connected; and an eye that sees the divinity and serenity in everyone around me.","sourceTitle":"Core Affirmations · Healthy Body, Loving Mind","video":null},{"title":"Pure Thoughts, Sweet Words, Selfless Deeds","affirmation":"I am grateful to you for shaping me such that my thoughts are always pure and loving; my words are always sweet, polite and respectful; and my deeds are always selfless and noble.","sourceTitle":"Core Affirmations · Pure Thoughts, Sweet Words, Selfless Deeds","video":null},{"title":"Love, Dignity & Respect","affirmation":"I am grateful to you for shaping me such that I respond to everyone with love, dignity, and respect.","sourceTitle":"Core Affirmations · Love, Dignity & Respect","video":null},{"title":"Radiating Love & Blessings","affirmation":"I am grateful to you for bestowing upon me the ability to radiate love and blessings to everyone I think about and/or interact with.","sourceTitle":"Core Affirmations · Radiating Love & Blessings","video":null},{"title":"Connected to the Divine","affirmation":"With your love and grace, I am aware that I am a pure, loving, calm, peaceful, powerful soul always connected to the divine.","sourceTitle":"Custom Affirmations · Connected to the Divine","video":null},{"title":"Surrounded by Loving Souls","affirmation":"I am grateful to you for surrounding me with very kind, caring, and loving souls.","sourceTitle":"Custom Affirmations · Surrounded by Loving Souls","video":null},{"title":"Inner Connection & Serenity","affirmation":"As I engage more with God loving people, I feel more connected with my inner self, and more aware of the serenity and divinity of those around me.","sourceTitle":"Custom Affirmations · Inner Connection & Serenity","video":null},{"title":"Love, Dignity & Respect","affirmation":"I am grateful to you for making me respond to everyone with love, dignity, and respect.","sourceTitle":"Custom Affirmations · Love, Dignity & Respect","video":null},{"title":"Healthy Relationships","affirmation":"I am grateful to you for making me physically and mentally healthy and all my relations are mutually loving and respectful.","sourceTitle":"Custom Affirmations · Healthy Relationships","video":null},{"title":"Radiating Love","affirmation":"I radiate love and blessings to everyone I think of or interact with.","sourceTitle":"Custom Affirmations · Radiating Love","video":null},{"title":"Recognising Virtues & Joy","affirmation":"I am grateful for your giving me the insight to recognise the virtues in those around me, and share with them how I think of them; I feel very joyful.","sourceTitle":"Custom Affirmations · Recognising Virtues & Joy","video":null},{"title":"Joy Through Connection","affirmation":"Connecting with people and learning something from each other also enhances my happiness.","sourceTitle":"Custom Affirmations · Joy Through Connection","video":null},{"title":"Healthy Body, Creative Mind","affirmation":"I am grateful to you for bestowing upon me the gift of a healthy resilient human body, a constructive creative loving mind.","sourceTitle":"Custom Affirmations · Healthy Body, Creative Mind","video":null},{"title":"Restful Sleep","affirmation":"I am grateful to you for bestowing upon me the gift of restful, rejuvenating sleep every night so that I can wake up well rested, calm, and vibrant every morning to enjoy the experiences of your magnificent creation.","sourceTitle":"Custom Affirmations · Restful Sleep","video":null}];
+const AFFIRMATION_POOL = [{"title":"Divine Alignment","affirmation":"I am grateful to you for the divine grace and conscious awareness that align my daily choices, words, and actions with my highest spiritual purpose.","sourceTitle":"Core Affirmations · Divine Alignment","start":0,"end":18.944,"phrases":["I am grateful to you","for the divine grace","and conscious awareness","that align my daily choices,","words, and actions","with my highest","spiritual purpose."],"times":[[0,2.093],[2.093,4.29],[4.29,6.844],[6.844,10.679],[10.679,12.24],[12.24,13.913],[13.913,17.5]],"audio":"morning-affirmations.m4a","coreIndex":1},{"title":"An Instrument of Love","affirmation":"I am grateful to you for making me an instrument of your love and grace to all the kind, caring, and loving souls you have surrounded me with.","sourceTitle":"Core Affirmations · An Instrument of Love","start":22.694,"end":37.069,"phrases":["I am grateful to you","for making me an instrument","of your love and grace","to all the kind, caring,","and loving souls","you have surrounded me with."],"times":[[0,2.031],[2.031,4.563],[4.563,7.704],[7.704,10.058],[10.058,12.609],[12.609,15.215]],"audio":"morning-affirmations.m4a","coreIndex":2},{"title":"A Channel of Grace","affirmation":"I am grateful to you for making me your channel to stream your love and blessings to everyone around me.","sourceTitle":"Core Affirmations · A Channel of Grace","start":40.58,"end":55.734,"phrases":["I am grateful to you","for making me your channel","to stream your love","and blessings","to everyone around me."],"times":[[0,3.158],[3.158,4.686],[4.686,6.826],[6.826,12.887],[12.887,15.95]],"audio":"morning-affirmations.m4a","coreIndex":3},{"title":"Healthy Body, Loving Mind","affirmation":"I am grateful to you for the gift of this healthy resilient body; a pure loving mind always aware that we are all connected; and an eye that sees the divinity and serenity in everyone around me.","sourceTitle":"Core Affirmations · Healthy Body, Loving Mind","start":59.982,"end":82.975,"phrases":["I am grateful to you","for the gift of this","healthy resilient body;","a pure loving mind","always aware that we are all connected;","and an eye that sees","the divinity and serenity","in everyone around me."],"times":[[0,3.824],[3.824,7.835],[7.835,10.498],[10.498,12.631],[12.631,15.268],[15.268,19.167],[19.167,21.113],[21.113,23.815]],"audio":"morning-affirmations.m4a","coreIndex":4},{"title":"Pure Thoughts, Sweet Words, Selfless Deeds","affirmation":"I am grateful to you for shaping me such that my thoughts are always pure and loving; my words are always sweet, polite and respectful; and my deeds are always selfless and noble.","sourceTitle":"Core Affirmations · Pure Thoughts, Sweet Words, Selfless Deeds","start":85.942,"end":106.438,"phrases":["I am grateful to you","for shaping me such that","my thoughts are always pure and loving;","my words are always sweet,","polite and respectful;","and my deeds are always","selfless and noble."],"times":[[0,1.978],[1.978,3.955],[3.955,8.385],[8.385,10.31],[10.31,12.458],[12.458,15.434],[15.434,19.245]],"audio":"morning-affirmations.m4a","coreIndex":5},{"title":"Love, Dignity & Respect","affirmation":"I am grateful to you for shaping me such that I respond to everyone with love, dignity, and respect.","sourceTitle":"Core Affirmations · Love, Dignity & Respect","start":109.51,"end":120.425,"phrases":["I am grateful to you","for shaping me such that","I respond to everyone","with love, dignity,","and respect."],"times":[[0,2.229],[2.229,4.291],[4.291,7.172],[7.172,8.805],[8.805,11.69]],"audio":"morning-affirmations.m4a","coreIndex":6},{"title":"Radiating Love & Blessings","affirmation":"I am grateful to you for bestowing upon me the ability to radiate love and blessings to everyone I think about and/or interact with.","sourceTitle":"Core Affirmations · Radiating Love & Blessings","start":121.992,"end":145.453,"phrases":["I am grateful to you","for bestowing upon me","the ability to radiate","love and blessings","to everyone I think about","and/or interact with."],"times":[[0,4.603],[4.603,10.007],[10.007,14.629],[14.629,16.338],[16.338,17.798],[17.798,22.91]],"audio":"morning-affirmations.m4a","coreIndex":7},{"title":"Connected to the Divine","affirmation":"With your love and grace, I am aware that I am a pure, loving, calm, peaceful, powerful soul always connected to the divine.","sourceTitle":"Custom Affirmations · Connected to the Divine","video":null},{"title":"Surrounded by Loving Souls","affirmation":"I am grateful to you for surrounding me with very kind, caring, and loving souls.","sourceTitle":"Custom Affirmations · Surrounded by Loving Souls","video":null},{"title":"Inner Connection & Serenity","affirmation":"As I engage more with God loving people, I feel more connected with my inner self, and more aware of the serenity and divinity of those around me.","sourceTitle":"Custom Affirmations · Inner Connection & Serenity","video":null},{"title":"Love, Dignity & Respect","affirmation":"I am grateful to you for making me respond to everyone with love, dignity, and respect.","sourceTitle":"Custom Affirmations · Love, Dignity & Respect","video":null},{"title":"Healthy Relationships","affirmation":"I am grateful to you for making me physically and mentally healthy and all my relations are mutually loving and respectful.","sourceTitle":"Custom Affirmations · Healthy Relationships","video":null},{"title":"Radiating Love","affirmation":"I radiate love and blessings to everyone I think of or interact with.","sourceTitle":"Custom Affirmations · Radiating Love","video":null},{"title":"Recognising Virtues & Joy","affirmation":"I am grateful for your giving me the insight to recognise the virtues in those around me, and share with them how I think of them; I feel very joyful.","sourceTitle":"Custom Affirmations · Recognising Virtues & Joy","video":null},{"title":"Joy Through Connection","affirmation":"Connecting with people and learning something from each other also enhances my happiness.","sourceTitle":"Custom Affirmations · Joy Through Connection","video":null},{"title":"Healthy Body, Creative Mind","affirmation":"I am grateful to you for bestowing upon me the gift of a healthy resilient human body, a constructive creative loving mind.","sourceTitle":"Custom Affirmations · Healthy Body, Creative Mind","video":null},{"title":"Restful Sleep","affirmation":"I am grateful to you for bestowing upon me the gift of restful, rejuvenating sleep every night so that I can wake up well rested, calm, and vibrant every morning to enjoy the experiences of your magnificent creation.","sourceTitle":"Custom Affirmations · Restful Sleep","video":null}];
 
 function defaultSequence(){
   const order=[];
@@ -276,22 +275,80 @@ function renderGrid(){
     grid.appendChild(b);
   });
 }
+let dailyCoreAudio=null,dailyAmbient=null,dailyCoreTicker=null;
+function stopDailyCore(){
+  if(dailyCoreTicker){clearInterval(dailyCoreTicker);dailyCoreTicker=null;}
+  if(dailyCoreAudio){dailyCoreAudio.pause();dailyCoreAudio=null;}
+  if(dailyAmbient){
+    const now=dailyAmbient.ctx.currentTime;
+    dailyAmbient.master.gain.cancelScheduledValues(now);
+    dailyAmbient.master.gain.linearRampToValueAtTime(0,now+.35);
+  }
+}
+function dailyAmbientOn(){
+  if(!dailyAmbient){
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC)return;
+    const ctx=new AC(),master=ctx.createGain(),filter=ctx.createBiquadFilter();
+    master.gain.value=0; filter.type="lowpass"; filter.frequency.value=900; filter.connect(master); master.connect(ctx.destination);
+    [130.81,196,261.63].forEach((hz,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type="sine";o.frequency.value=hz;g.gain.value=[.65,.3,.16][i];o.connect(g);g.connect(filter);o.start();});
+    dailyAmbient={ctx,master};
+  }
+  if(dailyAmbient.ctx.state==="suspended")dailyAmbient.ctx.resume();
+  const now=dailyAmbient.ctx.currentTime;
+  dailyAmbient.master.gain.cancelScheduledValues(now);
+  dailyAmbient.master.gain.linearRampToValueAtTime(.018,now+.7);
+}
+function updateDailyCorePhrase(day){
+  if(!dailyCoreAudio)return;
+  const rel=dailyCoreAudio.currentTime-day.start;
+  let idx=day.times.findIndex(t=>rel>=t[0]&&rel<t[1]);
+  if(idx<0)idx=Math.min(day.phrases.length-1,Math.max(0,day.phrases.length-1));
+  const el=document.getElementById("dailyCorePhrase");
+  if(el)el.textContent=day.phrases[idx];
+  const progress=document.getElementById("dailyCoreProgress");
+  if(progress)progress.style.width=Math.max(0,Math.min(100,(rel/(day.end-day.start))*100))+"%";
+  if(dailyCoreAudio.currentTime>=day.end){
+    stopDailyCore();
+    const btn=document.getElementById("dailyCorePlay");
+    if(btn)btn.textContent="Play again";
+  }
+}
 function renderVideo(day){
+  stopDailyCore();
   const area=document.getElementById("videoArea");
-  if(day.video){
-    area.innerHTML='<div class="video-card day-video"><video controls preload="metadata" playsinline><source src="'+day.video+'" type="video/mp4">Your browser does not support video playback.</video><p class="video-caption">Day '+day.day+' visual practice</p></div>';
+  if(day.coreIndex){
+    area.innerHTML='<div class="daily-core-visual document-boundary compact-boundary">'+
+      '<p class="sync-kicker">Core Affirmation '+day.coreIndex+'</p>'+
+      '<h3>'+day.title+'</h3>'+
+      '<div class="daily-core-phrase" id="dailyCorePhrase">'+day.phrases[0]+'</div>'+
+      '<div class="daily-core-progress-track"><span id="dailyCoreProgress"></span></div>'+
+      '<div class="daily-core-actions"><button class="primary-btn" id="dailyCorePlay" type="button">Play affirmation</button></div>'+
+      '</div>';
+    const btn=document.getElementById("dailyCorePlay");
+    btn.onclick=()=>{
+      stopDailyCore();
+      dailyCoreAudio=new Audio(day.audio);
+      dailyCoreAudio.currentTime=day.start;
+      dailyCoreAudio.volume=1;
+      dailyCoreAudio.play().then(()=>{
+        dailyAmbientOn();
+        btn.textContent="Playing…";
+        dailyCoreTicker=setInterval(()=>updateDailyCorePhrase(day),120);
+      }).catch(()=>{btn.textContent="Play affirmation";});
+    };
   }else{
-    area.innerHTML='<div class="video-placeholder"><div><strong>Day '+day.day+' visual practice</strong><span>Video + background music slot ready for this day</span></div></div>';
+    area.innerHTML='<div class="video-placeholder custom-day-visual"><div><strong>'+day.title+'</strong><span>Custom affirmation practice</span></div></div>';
   }
 }
 function renderDay(){
+  stopDailyCore();
   resetMeditationSession();
   const d=DAYS[selectedDay-1];
   document.getElementById("dayLabel").textContent="Day "+d.day+" of 30";
   document.getElementById("dayTitle").textContent=d.title;
   document.getElementById("sourceTitle").textContent="From: "+d.sourceTitle;
   document.getElementById("dayAffirmation").textContent=d.affirmation;
-  document.getElementById("meditationPrompt").textContent="Close your eyes and rest with the words, the intention behind them, or simply the energy they represent. For today, gently feel into: “"+d.title+".”";
   document.getElementById("reflection").value=state.reflections[d.day]||"";
   const btn=document.getElementById("completeBtn");
   btn.textContent=state.completed[d.day]?"Completed ✓":"Mark today complete";
