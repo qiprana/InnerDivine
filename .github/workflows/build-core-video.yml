@@ -31,7 +31,7 @@ jobs:
 
           # Use a light musical opening from an existing InnerDivine visual,
           # rather than the previous low drone-style synthesized ambience.
-          ffmpeg -y -ss 0 -t 4.0 -i A_Channel_for_Grace.mp4             -vn -ac 2 -ar 44100             -af "afade=t=in:st=0:d=.7,afade=t=out:st=3.0:d=1.0"             /tmp/core_music_seed.wav
+          ffmpeg -y -ss 0 -t 4.0 -i A_Channel_for_Grace.mp4             -vn -ac 2 -ar 44100             -af "afade=t=in:st=0:d=0.7,afade=t=out:st=3.0:d=1.0"             /tmp/core_music_seed.wav
 
           ffmpeg -y -stream_loop -1 -i /tmp/core_music_seed.wav -t "$TOTAL_DUR"             -af "volume=0.10" /tmp/core_music_bed.wav
 
