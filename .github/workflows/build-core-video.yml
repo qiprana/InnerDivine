@@ -1,0 +1,53 @@
+name: Build combined Core affirmation video
+
+on:
+  push:
+    paths:
+      - ".github/workflows/build-core-video.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+      - name: Build combined Core video and poster frames
+        run: |
+          set -e
+          mkdir -p videos/posters
+          cat > /tmp/core_concat.txt <<'EOF'
+          file '$GITHUB_WORKSPACE/videos/core_01_final.mp4'
+          file '$GITHUB_WORKSPACE/videos/core_02_final.mp4'
+          file '$GITHUB_WORKSPACE/videos/core_03_final.mp4'
+          file '$GITHUB_WORKSPACE/videos/core_04_final.mp4'
+          file '$GITHUB_WORKSPACE/videos/core_05_final.mp4'
+          file '$GITHUB_WORKSPACE/videos/core_06_final.mp4'
+          file '$GITHUB_WORKSPACE/videos/core_07_final.mp4'
+          EOF
+          ffmpeg -y -f concat -safe 0 -i /tmp/core_concat.txt -c copy /tmp/core_joined.mp4
+          DURATION=$(ffprobe -v error -show_entries format=duration -of csv=p=0 /tmp/core_joined.mp4)
+          OUT_START=$(python3 -c "print(max(0,float('$DURATION')-2.0))")
+          ffmpeg -y -i /tmp/core_joined.mp4             -vf "fade=t=in:st=0:d=1.4,fade=t=out:st=${OUT_START}:d=2.0"             -af "afade=t=in:st=0:d=1.8,afade=t=out:st=${OUT_START}:d=2.0"             -c:v libx264 -preset medium -crf 20 -pix_fmt yuv420p             -c:a aac -b:a 160k -movflags +faststart             videos/core_all_7_final.mp4
+          for i in 01 02 03 04 05 06 07; do
+            ffmpeg -y -ss 2.5 -i "videos/core_${i}_final.mp4" -frames:v 1 -q:v 2 "videos/posters/core_${i}.jpg"
+          done
+          ffmpeg -y -ss 2.5 -i videos/core_all_7_final.mp4 -frames:v 1 -q:v 2 videos/posters/core_all_7.jpg
+      - name: Commit generated media
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add videos/core_all_7_final.mp4 videos/posters/
+          if git diff --cached --quiet; then
+            echo "No media changes to commit"
+          else
+            git commit -m "Build combined Core affirmation video and poster frames"
+            git push
+          fi
