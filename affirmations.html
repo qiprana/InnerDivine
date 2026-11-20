@@ -29,12 +29,23 @@
 <a class="secondary-btn" href="custom-affirmations.html">Explore Custom Affirmations</a>
 </div>
 </section>
-<section class="section">
-<p class="page-kicker">Listen</p>
-<h2>Personal Morning Affirmations</h2>
-<div class="audio-card">
-<audio controls preload="metadata"><source src="morning-affirmations.m4a" type="audio/mp4">Your browser does not support audio playback.</audio>
-<p class="audio-note">Listen slowly and let each statement become an intention that can be carried into the day.</p>
+<section class="section core-overall-section">
+<p class="page-kicker">Overall Core Practice</p>
+<div class="document-boundary">
+  <div class="document-om">ॐ</div>
+  <h2>Daily Morning Affirmations</h2>
+  <p class="document-invitation">I start my day with the following affirmations. I do this before I get out of bed.</p>
+  <div class="document-divider"></div>
+
+  <div class="core-sync-player" aria-label="Core affirmation visual practice">
+    <p class="sync-kicker" id="coreSyncKicker">Core Affirmation / Meditation</p>
+    <h3 id="coreSyncTitle">Daily Morning Affirmations</h3>
+    <div class="sync-phrase" id="coreSyncPhrase">The invitation and all seven Core Affirmations are kept together here as one complete practice.</div>
+  </div>
+
+  <div class="audio-card core-audio-card">
+    <audio id="coreMasterAudio" controls preload="metadata"><source src="morning-affirmations.m4a" type="audio/mp4">Your browser does not support audio playback.</audio>
+  </div>
 </div>
 </section>
 <section class="section">
@@ -43,10 +54,71 @@
 <div class="grid-2"><article class="card"><span class="core-number">1</span><h3>Divine Alignment</h3><p>I am grateful to you for the divine grace and conscious awareness that align my daily choices, words, and actions with my highest spiritual purpose.</p></article><article class="card"><span class="core-number">2</span><h3>An Instrument of Love</h3><p>I am grateful to you for making me an instrument of your love and grace to all the kind, caring, and loving souls you have surrounded me with.</p></article><article class="card"><span class="core-number">3</span><h3>A Channel of Grace</h3><p>I am grateful to you for making me your channel to stream your love and blessings to everyone around me.</p></article><article class="card"><span class="core-number">4</span><h3>Healthy Body, Loving Mind</h3><p>I am grateful to you for the gift of this healthy resilient body; a pure loving mind always aware that we are all connected; and an eye that sees the divinity and serenity in everyone around me.</p></article><article class="card"><span class="core-number">5</span><h3>Pure Thoughts, Sweet Words, Selfless Deeds</h3><p>I am grateful to you for shaping me such that my thoughts are always pure and loving; my words are always sweet, polite and respectful; and my deeds are always selfless and noble.</p></article><article class="card"><span class="core-number">6</span><h3>Love, Dignity &amp; Respect</h3><p>I am grateful to you for shaping me such that I respond to everyone with love, dignity, and respect.</p></article><article class="card"><span class="core-number">7</span><h3>Radiating Love &amp; Blessings</h3><p>I am grateful to you for bestowing upon me the ability to radiate love and blessings to everyone I think about and/or interact with.</p></article></div>
 </section>
 <section class="section" id="channel-for-grace">
-<p class="page-kicker">Visual reflection</p>
+<p class="page-kicker">Additional visual reflection</p>
 <h2>A Channel for Grace</h2>
 <div class="video-card"><video controls preload="metadata" playsinline><source src="A_Channel_for_Grace.mp4" type="video/mp4">Your browser does not support video playback.</video></div>
 </section>
 </main>
 <footer class="footer">Inner Divine • Core Affirmations</footer>
-</body></html>
+<script>
+const CORE_SYNC=[
+{title:"Divine Alignment",start:0,end:18.944,clip:17.5,phrases:["I am grateful to you","for the divine grace","and conscious awareness","that align my daily choices,","words, and actions","with my highest","spiritual purpose."],times:[[0,2.093],[2.093,4.29],[4.29,6.844],[6.844,10.679],[10.679,12.24],[12.24,13.913],[13.913,17.5]]},
+{title:"An Instrument of Love",start:22.694,end:37.069,clip:15.215,phrases:["I am grateful to you","for making me an instrument","of your love and grace","to all the kind, caring,","and loving souls","you have surrounded me with."],times:[[0,2.031],[2.031,4.563],[4.563,7.704],[7.704,10.058],[10.058,12.609],[12.609,15.215]]},
+{title:"A Channel of Grace",start:40.58,end:55.734,clip:15.95,phrases:["I am grateful to you","for making me your channel","to stream your love","and blessings","to everyone around me."],times:[[0,3.158],[3.158,4.686],[4.686,6.826],[6.826,12.887],[12.887,15.95]]},
+{title:"Healthy Body, Loving Mind",start:59.982,end:82.975,clip:23.815,phrases:["I am grateful to you","for the gift of this","healthy resilient body;","a pure loving mind","always aware that we are all connected;","and an eye that sees","the divinity and serenity","in everyone around me."],times:[[0,3.824],[3.824,7.835],[7.835,10.498],[10.498,12.631],[12.631,15.268],[15.268,19.167],[19.167,21.113],[21.113,23.815]]},
+{title:"Pure Thoughts, Sweet Words, Selfless Deeds",start:85.942,end:106.438,clip:19.245,phrases:["I am grateful to you","for shaping me such that","my thoughts are always pure and loving;","my words are always sweet,","polite and respectful;","and my deeds are always","selfless and noble."],times:[[0,1.978],[1.978,3.955],[3.955,8.385],[8.385,10.31],[10.31,12.458],[12.458,15.434],[15.434,19.245]]},
+{title:"Love, Dignity & Respect",start:109.51,end:120.425,clip:11.69,phrases:["I am grateful to you","for shaping me such that","I respond to everyone","with love, dignity,","and respect."],times:[[0,2.229],[2.229,4.291],[4.291,7.172],[7.172,8.805],[8.805,11.69]]},
+{title:"Radiating Love & Blessings",start:121.992,end:145.453,clip:22.91,phrases:["I am grateful to you","for bestowing upon me","the ability to radiate","love and blessings","to everyone I think about","and/or interact with."],times:[[0,4.603],[4.603,10.007],[10.007,14.629],[14.629,16.338],[16.338,17.798],[17.798,22.91]]}
+];
+
+let coreAmbient=null;
+function ensureCoreAmbient(){
+  if(coreAmbient) return coreAmbient;
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC) return null;
+  const ctx=new AC();
+  const master=ctx.createGain(); master.gain.value=.018;
+  const filter=ctx.createBiquadFilter(); filter.type="lowpass"; filter.frequency.value=900;
+  filter.connect(master); master.connect(ctx.destination);
+  const lfo=ctx.createOscillator(),lfoGain=ctx.createGain();
+  lfo.frequency.value=.035; lfoGain.gain.value=.005;
+  lfo.connect(lfoGain); lfoGain.connect(master.gain); lfo.start();
+  const oscillators=[130.81,196,261.63].map((hz,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type="sine";o.frequency.value=hz;g.gain.value=[.7,.34,.18][i];o.connect(g);g.connect(filter);o.start();return o;});
+  master.gain.value=0;
+  coreAmbient={ctx,master,oscillators,lfo};
+  return coreAmbient;
+}
+function coreAmbientOn(){
+  const a=ensureCoreAmbient(); if(!a) return;
+  if(a.ctx.state==="suspended") a.ctx.resume();
+  a.master.gain.cancelScheduledValues(a.ctx.currentTime);
+  a.master.gain.linearRampToValueAtTime(.018,a.ctx.currentTime+.8);
+}
+function coreAmbientOff(){
+  if(!coreAmbient)return;
+  coreAmbient.master.gain.cancelScheduledValues(coreAmbient.ctx.currentTime);
+  coreAmbient.master.gain.linearRampToValueAtTime(0,coreAmbient.ctx.currentTime+.45);
+}
+document.addEventListener("pointerdown",()=>ensureCoreAmbient(),{once:true});
+
+const coreAudio=document.getElementById("coreMasterAudio");
+const coreTitle=document.getElementById("coreSyncTitle");
+const corePhrase=document.getElementById("coreSyncPhrase");
+const coreKicker=document.getElementById("coreSyncKicker");
+function updateCoreVisual(){
+  const t=coreAudio.currentTime;
+  let item=null;
+  for(let i=0;i<CORE_SYNC.length;i++){
+    if(t>=CORE_SYNC[i].start&&t<=CORE_SYNC[i].end){item=CORE_SYNC[i];coreKicker.textContent="Core Affirmation "+(i+1);break;}
+  }
+  if(!item)return;
+  coreTitle.textContent=item.title;
+  const rel=(t-item.start)*(item.clip/(item.end-item.start));
+  let idx=item.times.findIndex(x=>rel>=x[0]&&rel<x[1]); if(idx<0)idx=item.phrases.length-1;
+  corePhrase.textContent=item.phrases[idx];
+}
+coreAudio.addEventListener("play",()=>{coreAmbientOn();updateCoreVisual();});
+coreAudio.addEventListener("pause",coreAmbientOff);
+coreAudio.addEventListener("ended",coreAmbientOff);
+coreAudio.addEventListener("timeupdate",updateCoreVisual);
+</script></body></html>
