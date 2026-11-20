@@ -29,11 +29,44 @@ jobs:
           TOTAL_DUR=$(python3 -c "print(float('$VOICE_DUR')+6.0)")
           OUT_START=$(python3 -c "print(max(0,float('$TOTAL_DUR')-2.0))")
 
-          # Use a light musical opening from an existing InnerDivine visual,
-          # rather than the previous low drone-style synthesized ambience.
-          ffmpeg -y -ss 0 -t 4.0 -i A_Channel_for_Grace.mp4             -vn -ac 2 -ar 44100             -af "afade=t=in:st=0:d=0.7,afade=t=out:st=3.0:d=1.0"             /tmp/core_music_seed.wav
+          # Option 1: warm morning piano. Create a bright, gentle arpeggio loop
+          # from short piano-like plucked tones; no ambient drone source is used.
+          mkdir -p /tmp/piano_notes
+          make_note() {
+            FREQ="$1"; OUT="$2"
+            ffmpeg -y -f lavfi -i "aevalsrc=0.16*(sin(2*PI*$FREQ*t)+0.38*sin(4*PI*$FREQ*t)+0.12*sin(6*PI*$FREQ*t))*exp(-4.2*t):s=44100:d=0.72" \
+              -af "aecho=0.8:0.32:70:0.10,afade=t=out:st=0.48:d=0.24" -ac 2 "$OUT"
+          }
+          make_note 261.63 /tmp/piano_notes/c4.wav
+          make_note 329.63 /tmp/piano_notes/e4.wav
+          make_note 392.00 /tmp/piano_notes/g4.wav
+          make_note 523.25 /tmp/piano_notes/c5.wav
+          make_note 349.23 /tmp/piano_notes/f4.wav
+          make_note 440.00 /tmp/piano_notes/a4.wav
+          make_note 293.66 /tmp/piano_notes/d4.wav
+          make_note 493.88 /tmp/piano_notes/b4.wav
 
-          ffmpeg -y -stream_loop -1 -i /tmp/core_music_seed.wav -t "$TOTAL_DUR"             -af "volume=0.10" /tmp/core_music_bed.wav
+          cat > /tmp/piano_seq.txt <<'EOF'
+          file '/tmp/piano_notes/c4.wav'
+          file '/tmp/piano_notes/e4.wav'
+          file '/tmp/piano_notes/g4.wav'
+          file '/tmp/piano_notes/c5.wav'
+          file '/tmp/piano_notes/f4.wav'
+          file '/tmp/piano_notes/a4.wav'
+          file '/tmp/piano_notes/c5.wav'
+          file '/tmp/piano_notes/a4.wav'
+          file '/tmp/piano_notes/g4.wav'
+          file '/tmp/piano_notes/b4.wav'
+          file '/tmp/piano_notes/d4.wav'
+          file '/tmp/piano_notes/g4.wav'
+          file '/tmp/piano_notes/c4.wav'
+          file '/tmp/piano_notes/e4.wav'
+          file '/tmp/piano_notes/g4.wav'
+          file '/tmp/piano_notes/c5.wav'
+          EOF
+          ffmpeg -y -f concat -safe 0 -i /tmp/piano_seq.txt -c:a pcm_s16le /tmp/core_music_option1.wav
+          ffmpeg -y -stream_loop -1 -i /tmp/core_music_option1.wav -t "$TOTAL_DUR" \
+            -af "volume=0.065,afade=t=in:st=0:d=1.2" /tmp/core_music_bed.wav
 
           # 3-second music-only opening, then the original continuous Core voice,
           # with a gentle 3-second musical tail after the voice.
