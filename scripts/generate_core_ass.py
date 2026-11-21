@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
-"""Generate burned-in, phrase-synchronized captions for the continuous Core video.
+"""Generate clean, phrase-synchronized captions for the continuous Core video.
 
-Timings are based on the original uninterrupted morning-affirmations.m4a audio.
-The video adds a 3-second music-only introduction, so every spoken cue is shifted
-by that amount. This creates one continuous Core practice, not seven joined clips.
+The phrase timings were originally measured on seven shorter rendered clips.
+For the continuous source recording, each phrase must be rescaled back into the
+source segment duration. This script performs that conversion, then adds the
+three-second music-only introduction used by the final Core video.
 """
+
+from __future__ import annotations
+
 from pathlib import Path
 import textwrap
 
@@ -15,6 +19,7 @@ CORE = [
         "title": "1 · Divine Alignment",
         "start": 0.0,
         "end": 18.944,
+        "clip": 17.500,
         "phrases": [
             (0.0, 2.093, "I am grateful to you"),
             (2.093, 4.290, "for the divine grace"),
@@ -29,6 +34,7 @@ CORE = [
         "title": "2 · An Instrument of Love",
         "start": 22.694,
         "end": 37.069,
+        "clip": 15.215,
         "phrases": [
             (0.0, 2.031, "I am grateful to you"),
             (2.031, 4.563, "for making me an instrument"),
@@ -42,6 +48,7 @@ CORE = [
         "title": "3 · A Channel of Grace",
         "start": 40.580,
         "end": 55.734,
+        "clip": 15.950,
         "phrases": [
             (0.0, 3.158, "I am grateful to you"),
             (3.158, 4.686, "for making me your channel"),
@@ -54,6 +61,7 @@ CORE = [
         "title": "4 · Healthy Body, Loving Mind",
         "start": 59.982,
         "end": 82.975,
+        "clip": 23.815,
         "phrases": [
             (0.0, 3.824, "I am grateful to you"),
             (3.824, 7.835, "for the gift of this"),
@@ -69,6 +77,7 @@ CORE = [
         "title": "5 · Pure Thoughts, Sweet Words, Selfless Deeds",
         "start": 85.942,
         "end": 106.438,
+        "clip": 19.245,
         "phrases": [
             (0.0, 1.978, "I am grateful to you"),
             (1.978, 3.955, "for shaping me such that"),
@@ -83,6 +92,7 @@ CORE = [
         "title": "6 · Love, Dignity & Respect",
         "start": 109.510,
         "end": 120.425,
+        "clip": 11.690,
         "phrases": [
             (0.0, 2.229, "I am grateful to you"),
             (2.229, 4.291, "for shaping me such that"),
@@ -95,6 +105,7 @@ CORE = [
         "title": "7 · Radiating Love & Blessings",
         "start": 121.992,
         "end": 145.453,
+        "clip": 22.910,
         "phrases": [
             (0.0, 4.603, "I am grateful to you"),
             (4.603, 10.007, "for bestowing upon me"),
@@ -108,7 +119,7 @@ CORE = [
 
 
 def ass_time(seconds: float) -> str:
-    seconds = max(0.0, seconds)
+    seconds = max(0.0, float(seconds))
     hours = int(seconds // 3600)
     minutes = int(seconds // 60) % 60
     secs = int(seconds) % 60
@@ -123,12 +134,20 @@ def safe(text: str) -> str:
     return text.replace("\\", r"\\").replace("{", r"\{").replace("}", r"\}")
 
 
-def wrapped(text: str, width: int = 38) -> str:
+def wrapped(text: str, width: int = 34) -> str:
     return r"\N".join(textwrap.wrap(text, width=width, break_long_words=False, break_on_hyphens=False))
 
 
-def event(style: str, start: float, end: float, text: str) -> str:
-    return f"Dialogue: 0,{ass_time(start)},{ass_time(end)},{style},,0,0,0,,{{\\fad(220,220)}}{safe(text)}"
+def event(style: str, start: float, end: float, text: str, fade: int = 120) -> str:
+    if end <= start:
+        raise ValueError(f"Invalid caption timing: {start} to {end} for {text!r}")
+    return f"Dialogue: 0,{ass_time(start)},{ass_time(end)},{style},,0,0,0,,{{\\fad({fade},{fade})}}{safe(text)}"
+
+
+def source_time(item: dict, clip_relative: float) -> float:
+    """Convert a daily-clip timestamp back to the original continuous source."""
+    source_duration = item["end"] - item["start"]
+    return item["start"] + clip_relative * (source_duration / item["clip"])
 
 
 def main() -> None:
@@ -143,30 +162,41 @@ def main() -> None:
         "",
         "[V4+ Styles]",
         "Format: Name,Fontname,Fontsize,PrimaryColour,SecondaryColour,OutlineColour,BackColour,Bold,Italic,Underline,StrikeOut,ScaleX,ScaleY,Spacing,Angle,BorderStyle,Outline,Shadow,Alignment,MarginL,MarginR,MarginV,Encoding",
-        "Style: Title,DejaVu Sans,31,&H003F2F45,&H000000FF,&H60F7F1EA,&H00000000,-1,0,0,0,100,100,0,0,3,4,0,8,80,80,58,1",
-        "Style: Phrase,DejaVu Sans,52,&H003F2F45,&H000000FF,&H55FBF7F2,&H00000000,-1,0,0,0,100,100,0,0,3,10,0,5,115,115,90,1",
-        "Style: Intro,DejaVu Sans,48,&H003F2F45,&H000000FF,&H55FBF7F2,&H00000000,-1,0,0,0,100,100,0,0,3,10,0,5,120,120,90,1",
+        "Style: Title,DejaVu Sans,30,&H0058445B,&H000000FF,&H22FFF9F1,&H00000000,-1,0,0,0,100,100,0,0,1,3,1,8,80,80,54,1",
+        "Style: Phrase,DejaVu Sans,50,&H0058445B,&H000000FF,&H18FFF9F1,&H00000000,-1,0,0,0,100,100,0,0,1,4,1,5,115,115,82,1",
+        "Style: Intro,DejaVu Sans,44,&H006A526D,&H000000FF,&H18FFF9F1,&H00000000,-1,0,0,0,100,100,0,0,1,4,1,5,120,120,82,1",
         "",
         "[Events]",
         "Format: Layer,Start,End,Style,Name,MarginL,MarginR,MarginV,Effect,Text",
-        event("Intro", 0.2, INTRO - 0.15, "Daily Morning Affirmations"),
+        event("Intro", 0.25, INTRO - 0.15, "Daily Morning Affirmations", fade=180),
     ]
 
+    previous_end = 0.0
     for item in CORE:
         title_start = item["start"] + INTRO
         title_end = item["end"] + INTRO
         lines.append(event("Title", title_start, title_end, item["title"]))
+
         for rel_start, rel_end, phrase in item["phrases"]:
-            start = item["start"] + rel_start + INTRO
-            end = item["start"] + rel_end + INTRO
+            start = source_time(item, rel_start) + INTRO
+            end = source_time(item, rel_end) + INTRO
+            if start < previous_end - 0.04:
+                raise ValueError(f"Overlapping captions near {phrase!r}: {start} < {previous_end}")
             lines.append(event("Phrase", start, end, wrapped(phrase)))
+            previous_end = end
 
     final_voice_end = CORE[-1]["end"] + INTRO
-    lines.append(event("Intro", final_voice_end + 0.25, final_voice_end + 3.0, "With love and gratitude"))
+    lines.append(event("Intro", final_voice_end + 0.35, final_voice_end + 3.0, "With love and gratitude", fade=180))
 
     destination = Path("/tmp/core_continuous.ass")
     destination.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"Wrote {destination} with {len(lines)} lines")
+    print(f"Wrote corrected captions: {destination}")
+
+    # Log the converted cue boundaries so the workflow provides auditable timing evidence.
+    for item in CORE:
+        first = source_time(item, item["phrases"][0][0]) + INTRO
+        last = source_time(item, item["phrases"][-1][1]) + INTRO
+        print(f"{item['title']}: {first:.3f}s to {last:.3f}s")
 
 
 if __name__ == "__main__":
