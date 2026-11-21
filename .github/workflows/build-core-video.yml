@@ -1,13 +1,18 @@
-name: Build Core and daily affirmation videos
+name: Build captioned continuous Core affirmation video
 
 on:
   push:
     paths:
       - ".github/workflows/build-core-video.yml"
+      - "scripts/generate_core_ass.py"
   workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: innerdivine-captioned-core-video
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -15,17 +20,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Install ffmpeg
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg
-      - name: Build warm piano bed
+
+      - name: Create warm piano background
         run: |
           set -e
           mkdir -p /tmp/piano_notes videos/posters
           make_note() {
             FREQ="$1"; OUT="$2"
-            ffmpeg -y -f lavfi -i "aevalsrc=0.16*(sin(2*PI*$FREQ*t)+0.38*sin(4*PI*$FREQ*t)+0.12*sin(6*PI*$FREQ*t))*exp(-4.2*t):s=44100:d=0.72"               -af "aecho=0.8:0.32:70:0.10,afade=t=out:st=0.48:d=0.24" -ac 2 "$OUT"
+            ffmpeg -y -f lavfi -i "aevalsrc=0.18*(sin(2*PI*$FREQ*t)+0.34*sin(4*PI*$FREQ*t)+0.10*sin(6*PI*$FREQ*t))*exp(-3.8*t):s=44100:d=0.78" \
+              -af "aecho=0.8:0.30:75:0.10,afade=t=out:st=0.52:d=0.26" -ac 2 "$OUT"
           }
           make_note 261.63 /tmp/piano_notes/c4.wav
           make_note 329.63 /tmp/piano_notes/e4.wav
@@ -35,7 +43,8 @@ jobs:
           make_note 440.00 /tmp/piano_notes/a4.wav
           make_note 293.66 /tmp/piano_notes/d4.wav
           make_note 493.88 /tmp/piano_notes/b4.wav
-          cat > /tmp/piano_seq.txt <<'EOF'
+
+          cat > /tmp/piano_sequence.txt <<'EOF'
           file '/tmp/piano_notes/c4.wav'
           file '/tmp/piano_notes/e4.wav'
           file '/tmp/piano_notes/g4.wav'
@@ -53,54 +62,53 @@ jobs:
           file '/tmp/piano_notes/g4.wav'
           file '/tmp/piano_notes/c5.wav'
           EOF
-          ffmpeg -y -f concat -safe 0 -i /tmp/piano_seq.txt -c:a pcm_s16le /tmp/core_music_option1.wav
 
-      - name: Rebuild continuous Core video
+          ffmpeg -y -f concat -safe 0 -i /tmp/piano_sequence.txt \
+            -c:a pcm_s16le /tmp/warm_morning_piano.wav
+
+      - name: Generate phrase-synchronized Core text
+        run: |
+          python3 scripts/generate_core_ass.py
+          test -s /tmp/core_continuous.ass
+
+      - name: Build one continuous captioned Core video
         run: |
           set -e
           VOICE_DUR=$(ffprobe -v error -show_entries format=duration -of csv=p=0 morning-affirmations.m4a)
           TOTAL_DUR=$(python3 -c "print(float('$VOICE_DUR')+6.0)")
           OUT_START=$(python3 -c "print(max(0,float('$TOTAL_DUR')-2.0))")
-          ffmpeg -y -stream_loop -1 -i /tmp/core_music_option1.wav -t "$TOTAL_DUR"             -af "volume=0.065,afade=t=in:st=0:d=1.2" /tmp/core_music_bed.wav
-          ffmpeg -y -i /tmp/core_music_bed.wav -i morning-affirmations.m4a             -filter_complex "[1:a]adelay=3000|3000,volume=1.0[voice];[0:a][voice]amix=inputs=2:duration=first:dropout_transition=2,alimiter=limit=.95[a]"             -map "[a]" -t "$TOTAL_DUR" /tmp/core_continuous_mix.m4a
-          ffmpeg -y -ss 2.5 -i videos/core_01_final.mp4 -frames:v 1 -q:v 2 videos/posters/core_continuous.jpg
-          ffmpeg -y -loop 1 -i videos/posters/core_continuous.jpg -i /tmp/core_continuous_mix.m4a             -c:v libx264 -preset medium -crf 20 -tune stillimage -pix_fmt yuv420p -r 30             -vf "scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2,fade=t=in:st=0:d=1.2,fade=t=out:st=$OUT_START:d=2.0"             -c:a aac -b:a 160k -shortest -movflags +faststart             /tmp/core_continuous_final.mp4
-          mv /tmp/core_continuous_final.mp4 videos/core_continuous_final.mp4
 
-      - name: Rebuild daily Core videos with warm piano
-        run: |
-          set -e
-          build_day() {
-            NUM="$1"; START="$2"; END="$3"
-            DUR=$(python3 -c "print(float('$END')-float('$START'))")
-            OUT_DUR=$(python3 -c "print(float('$DUR')+4.0)")
-            FADE_OUT=$(python3 -c "print(max(0,float('$OUT_DUR')-1.6))")
+          # The music is intentionally audible throughout, while the original
+          # continuous voice remains clear and uninterrupted.
+          ffmpeg -y -stream_loop -1 -i /tmp/warm_morning_piano.wav -t "$TOTAL_DUR" \
+            -af "afade=t=in:st=0:d=1.2,afade=t=out:st=$OUT_START:d=2.0" \
+            /tmp/piano_full.wav
 
-            ffmpeg -y -ss "$START" -to "$END" -i morning-affirmations.m4a               -af "adelay=2000|2000" /tmp/day_voice.m4a
-            ffmpeg -y -stream_loop -1 -i /tmp/core_music_option1.wav -t "$OUT_DUR"               -af "volume=0.065,afade=t=in:st=0:d=0.9,afade=t=out:st=$FADE_OUT:d=1.4" /tmp/day_music.wav
-            ffmpeg -y -i /tmp/day_music.wav -i /tmp/day_voice.m4a               -filter_complex "[0:a][1:a]amix=inputs=2:duration=first:dropout_transition=2,alimiter=limit=.95[a]"               -map "[a]" -t "$OUT_DUR" /tmp/day_mix.m4a
+          ffmpeg -y -i /tmp/piano_full.wav -i morning-affirmations.m4a \
+            -filter_complex "[0:a]volume=0.18[music];[1:a]adelay=3000|3000,volume=1.0[voice];[music][voice]amix=inputs=2:duration=first:dropout_transition=2:normalize=0,alimiter=limit=0.95[a]" \
+            -map "[a]" -t "$TOTAL_DUR" /tmp/core_audio_with_piano.m4a
 
-            ffmpeg -y -i "videos/core_${NUM}_final.mp4" -i /tmp/day_mix.m4a               -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 160k -shortest -movflags +faststart               "/tmp/core_${NUM}_new.mp4"
-            mv "/tmp/core_${NUM}_new.mp4" "videos/core_${NUM}_final.mp4"
-            ffmpeg -y -ss 1.0 -i "videos/core_${NUM}_final.mp4" -frames:v 1 -q:v 2 "videos/posters/core_${NUM}.jpg"
-          }
+          ffmpeg -y -ss 2.5 -i videos/core_01_final.mp4 \
+            -frames:v 1 -q:v 2 videos/posters/core_continuous.jpg
 
-          build_day 01 0 18.944
-          build_day 02 22.694 37.069
-          build_day 03 40.580 55.734
-          build_day 04 59.982 82.975
-          build_day 05 85.942 106.438
-          build_day 06 109.510 120.425
-          build_day 07 121.992 145.453
+          ffmpeg -y -loop 1 -i videos/posters/core_continuous.jpg \
+            -i /tmp/core_audio_with_piano.m4a \
+            -vf "scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,eq=brightness=0.04:saturation=0.82,subtitles=/tmp/core_continuous.ass,fade=t=in:st=0:d=1.2,fade=t=out:st=$OUT_START:d=2.0" \
+            -c:v libx264 -preset medium -crf 19 -tune stillimage \
+            -pix_fmt yuv420p -r 30 -c:a aac -b:a 192k \
+            -shortest -movflags +faststart \
+            videos/core_continuous_final.mp4
 
-      - name: Commit generated media
+          ffprobe -v error -show_entries stream=codec_type,codec_name -of default=nw=1 videos/core_continuous_final.mp4
+
+      - name: Commit captioned Core video
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add videos/core_continuous_final.mp4 videos/core_0*_final.mp4 videos/posters/
+          git add videos/core_continuous_final.mp4 videos/posters/core_continuous.jpg
           if git diff --cached --quiet; then
-            echo "No media changes to commit"
+            echo "No generated media changes"
           else
-            git commit -m "Rebuild Core and seven daily videos with warm piano"
+            git commit -m "Build captioned continuous Core video with audible piano"
             git push
           fi
